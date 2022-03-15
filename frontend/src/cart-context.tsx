@@ -5,6 +5,7 @@ interface ICartContext {
   setIsOpen: (isOpen: boolean) => void;
 }
 
+// Why does setIsOpen show null here but void above? Just inconsistent?
 export const CartContext = createContext<ICartContext>({
   isOpen: false,
   setIsOpen: () => null,
