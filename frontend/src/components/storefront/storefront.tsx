@@ -1,30 +1,40 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProductCard from "../../components/product-card/product-card"
 
 import "./storefront.styles.css";
 
 const Storefront = () => {
+  const [productList, setProductList] = useState<Product[]>([]);
+  interface Product {
+    id: string;
+    name: string;
+    isDiscontinued: boolean;
+    variants: Variant[];
+    description: string;
+    imageSrc: string;
+  }
+  
+  interface Variant {
+    id: string;
+    quantity: number;
+    image: string;
+    isDiscontinued: boolean;
+    priceCents: number;
+    selectableOptions: selectableOptions
+  }
+  
+  // Not sure if I need these TWO selectableOptions and Option to be separate things(?)
+  interface selectableOptions {
+    options: Option[];
+  }
 
-  // REPLACE WITH API FETCHED ITEMS
-  const TEMPORARY_ITEMS = [
-    {
-      id: 1,
-      name: 'Hat',
-      description:
-        'Fashion moves so quickly that, unless you have a strong point of view, you can lose integrity.',
-      imageSrc:
-        'https://media.istockphoto.com/photos/hat-on-white-background-picture-id526131500?b=1&k=20&m=526131500&s=170667a&w=0&h=TVhckgzmxLZ6b1V74eel7XbFy73tldESzBcH0ZG6g0c=',
-    },
-    {
-      id: 2,
-      name: 'Shirt',
-      description: 'Fashion never stops. There is always the new project, the new opportunity.',
-      imageSrc:
-        'https://media.istockphoto.com/photos/blank-white-tshirt-front-with-clipping-path-picture-id482948743?b=1&k=20&m=482948743&s=170667a&w=0&h=DetzN8rTsgQDTyBDSWvc7gUNz0gae0CUQecM-KNN3WY=',
-    },
-  ];
-
+  interface Option {
+    type: string;
+    value: string;
+  }
+  
   // Get products from server:
+  // REFACTOR TO PUT THIS INSIDE OF useEffect:
   async function getProducts() {
     return await fetch("http://localhost:8000/products", {
       method: "GET",
@@ -32,9 +42,11 @@ const Storefront = () => {
     }).then((results) => {
       return results.json()
     }).then((res) => {
-      console.log("GOT A RES: ", res)
+      setProductList(res.products)
+    }).then(() => {
+      console.log("ProductList?", productList)
     }).catch((err) => {
-      // Install proper error handling for USER, not just admin!!
+      // Install proper error handling for USER, not just admin!!!
       console.log("fetch err", err)
     })
   }  
@@ -47,12 +59,13 @@ const Storefront = () => {
     <div>
       <h1>Storefront is showing up with no problems.</h1>
         <div className="products-listing">
-          {TEMPORARY_ITEMS.map((productItem) => (
+          {productList && (
+            productList.map((productItem) => (
             <ProductCard key={productItem.id} product={productItem} />
-          ))}
+          )))}
         </div>
     </div>
   )
 }
 
-export default Storefront
+export default Storefront;
