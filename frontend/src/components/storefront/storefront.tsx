@@ -11,7 +11,7 @@ const Storefront = () => {
     isDiscontinued: boolean;
     variants: Variant[];
     description: string;
-    imageSrc: string;
+    defaultImage: string;
   }
   
   interface Variant {
@@ -32,38 +32,35 @@ const Storefront = () => {
     type: string;
     value: string;
   }
-  
-  // Get products from server:
-  // REFACTOR TO PUT THIS INSIDE OF useEffect:
-  async function getProducts() {
-    return await fetch("http://localhost:8000/products", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" }, 
-    }).then((results) => {
-      return results.json()
-    }).then((res) => {
-      setProductList(res.products)
-    }).then(() => {
-      console.log("ProductList?", productList)
-    }).catch((err) => {
-      // Install proper error handling for USER, not just admin!!!
-      console.log("fetch err", err)
-    })
-  }  
 
   useEffect(() => {
+    async function getProducts() {
+      return await fetch("http://localhost:8000/products", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }, 
+      }).then((results) => {
+        return results.json()
+      }).then((res) => {
+        setProductList(res.products)
+      }).catch((err) => {
+        // Install proper error handling for USER, not just admin!!!
+        console.log("fetch err", err)
+      })
+    }  
     getProducts()
-  }, [])
+    
+    // Empty array, in spite of warning, to not cause infinite loop:
+  },[])
 
+  console.log("PRODUCTLIST:", productList)
   return (
     <div>
-      <h1>Storefront is showing up with no problems.</h1>
-        <div className="products-listing">
-          {productList && (
-            productList.map((productItem) => (
-            <ProductCard key={productItem.id} product={productItem} />
-          )))}
-        </div>
+      <div className="products-listing">
+        {productList[0] && (
+          productList.map((productItem) => (
+          <ProductCard key={productItem.id} product={productItem} />
+        )))}
+      </div>
     </div>
   )
 }

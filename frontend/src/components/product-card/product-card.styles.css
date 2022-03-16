@@ -3,8 +3,9 @@
   flex-direction: column;
   border-radius: 10px;
   margin: 10px;
+  /* This width property is useless? */
   width: 200px;
-  height: 350px;
+  height: 500px;
   padding: 15px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   cursor: pointer;
