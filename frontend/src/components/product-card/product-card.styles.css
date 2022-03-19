@@ -29,3 +29,19 @@
   font-size: 20px;
   margin-bottom: 10px;
 }
+
+/* Relocate once component is abstracted to its own files: */
+.product-options-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  
+}
+
+.product-options-button {
+  margin-top: 2em;
+  width: 4em;
+  height: 2em;
+  border-radius: 5px;
+  background-color: silver;
+}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ProductCard from "../../components/product-card/product-card"
+import ProductCard from "../../components/product-card/product-card";
 
 import "./storefront.styles.css";
 
@@ -52,11 +52,11 @@ const Storefront = () => {
     // Empty array, in spite of warning, to not cause infinite loop:
   },[])
 
-  console.log("PRODUCTLIST:", productList)
+  // console.log("PRODUCTLIST:", productList)
   return (
     <div>
       <div className="products-listing">
-        {productList[0] && (
+        {productList.length > 0 && (
           productList.map((productItem) => (
           <ProductCard key={productItem.id} product={productItem} />
         )))}
