@@ -1,14 +1,21 @@
 import { IProduct, Variant, SelectableOptions, Option, IModalContext, ProductList } from "./product-types"
 
-export const SET_PRODUCTS = "SET_PRODUCTS";
+export const GET_PRODUCTS_SUCCESS = "GET_PRODUCTS_SUCCESS";
+export const GET_PRODUCTS_ERROR = "GET_PRODUCTS_ERROR";
 export const SELECTED_PRODUCT = "SELECTED_PRODUCT";
 export const REMOVE_SELECTED_PRODUCT = "REMOVE_SELECTED_PRODUCT";
 export const TOGGLE_CART = "TOGGLE_CART";
 
 
-interface SetProducts {
-  type: typeof SET_PRODUCTS,
+interface GetProductsSuccess {
+  type: typeof GET_PRODUCTS_SUCCESS,
   payload: ProductList
+}
+
+interface GetProductsError {
+  type: typeof GET_PRODUCTS_ERROR,
+  // Payload for ERROR?
+  // payload: 
 }
 
 interface SelectedProduct {
@@ -28,4 +35,4 @@ interface ToggleCart {
   // Something goes here.
 }
 
-export type ProductDispatchTypes = SetProducts | SelectedProduct | RemoveSelectedProduct | ToggleCart
+export type ProductDispatchTypes = GetProductsSuccess | GetProductsError | SelectedProduct | RemoveSelectedProduct | ToggleCart

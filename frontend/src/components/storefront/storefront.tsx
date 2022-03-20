@@ -4,48 +4,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetProducts } from "../../redux/actions/productActions";
 import ProductDetailModal from "../product-detail-modal/product-detail-modal";
 import Cart from "../cart/cart";
+import { RootStore } from "../../redux/store";
 
 import "./storefront.styles.css";
 
 const Storefront = () => {
-  const products = useSelector((state) => state);
   const dispatch = useDispatch();
+  const products = useSelector((state: RootStore) => state.productsList.products);
   console.log("PRODSWTF", products)
-
-  // Once the products are received from the API and set in the store, we will DESTRUCTURE THEM HERE.
-
-  const [productList, setProductList] = useState<Product[]>([]);
-  interface Product {
-    id: string;
-    name: string;
-    isDiscontinued: boolean;
-    variants: Variant[];
-    description: string;
-    defaultImage: string;
-  }
-  
-  interface Variant {
-    id: string;
-    quantity: number;
-    image: string;
-    isDiscontinued: boolean;
-    priceCents: number;
-    selectableOptions: selectableOptions
-  }
-  
-  // Not sure if I need these TWO selectableOptions and Option to be separate things(?)
-  interface selectableOptions {
-    options: Option[];
-  }
-
-  interface Option {
-    type: string;
-    value: string;
-  }
-
+ 
   useEffect(() => {
-    GetProducts();
-    // Empty array, in spite of warning, to not cause infinite loop:
+    // Do we need this?
+    dispatch(GetProducts());
   },[])
 
   
@@ -54,8 +24,8 @@ const Storefront = () => {
       <Cart />
       {/* <ProductDetailModal /> */}
       <div className="products-listing">
-        {products.length > 0 && (
-          products.map((productItem) => (
+        {products && (
+          products.products.map((productItem) => (
           <ProductCard key={productItem.id} product={productItem} />
         )))}
       </div>

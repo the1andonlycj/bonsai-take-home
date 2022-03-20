@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 
 import VariantDetails from './variant-details';
-import { ModalContext } from '../../modal-context';
+
 
 import './product-detail-modal.css';
 
@@ -32,9 +32,9 @@ interface Option {
 
 const ProductDetailModal = (product: IProduct) => {
   const [variantsToggled, setVariantsToggled] = useState(false)
-  const { setIsModalOpen } = useContext(ModalContext);
   
-  const closeModal = () => setIsModalOpen(false);
+  
+  
   
   let onlyOneVariant = {
     defaultImage: "https://picsum.photos/id/16/200",
@@ -175,7 +175,9 @@ const ProductDetailModal = (product: IProduct) => {
       <div className="modal-column-right">
         <div className="modal-options-container">
           {/* Why doesn't closeModal work the way close cart does? */}
-          <button onClick={closeModal}><strong>X Close</strong></button>
+          <button 
+          // onClick={}
+          ><strong>X Close</strong></button>
           {variantsToggled &&
             <div>
               <p>You've got options:</p>

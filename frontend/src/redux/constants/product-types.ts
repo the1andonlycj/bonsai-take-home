@@ -6,6 +6,7 @@ export type ProductList = {
 
 export type IProduct = {
   name: string;
+  id: string;
   description: string;
   defaultImage: string;
   variants: Variant[];  

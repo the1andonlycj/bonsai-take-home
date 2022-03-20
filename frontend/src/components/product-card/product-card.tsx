@@ -1,6 +1,6 @@
 import { FC, ReactElement, useContext, useState } from "react";
 import ProductDetailModal from "../product-detail-modal/product-detail-modal";
-import { ModalContext } from "../../modal-context";
+
 
 import "./product-card.styles.css";
 
@@ -41,10 +41,6 @@ interface ModalContent {
 };
 
 const ProductCard: FC<IProductCardProps> = ({ product }): ReactElement => {
-  // If we import the useModal functionality here from its context, we should be able to open the modal using these buttons and pass the appropriate information.
-  const { isModalOpen, setIsModalOpen } = useContext(ModalContext);
-  console.log("PRODUCT:", product)
-  
   const [showDetails, setShowDetails] = useState(false)
   const { name, defaultImage, description, variants } = product;
   

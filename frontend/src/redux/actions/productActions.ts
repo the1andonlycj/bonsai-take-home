@@ -1,37 +1,43 @@
 import { Dispatch } from "redux";
-import { ProductDispatchTypes, SET_PRODUCTS, SELECTED_PRODUCT, REMOVE_SELECTED_PRODUCT, TOGGLE_CART } from "../constants/action-types"
+import { ProductDispatchTypes, GET_PRODUCTS_SUCCESS, GET_PRODUCTS_ERROR, SELECTED_PRODUCT, REMOVE_SELECTED_PRODUCT, TOGGLE_CART } from "../constants/action-types"
 
 export const GetProducts = () => async (dispatch: Dispatch<ProductDispatchTypes>) => {
+  console.log("I'm TRYING MY BEST")
   return await fetch("http://localhost:8000/products", {
     method: "GET",
     headers: { "Content-Type": "application/json" }, 
   }).then((results) => {
+    
     return results.json()
   }).then((res) => {
     dispatch({
-      type: SET_PRODUCTS,
+      type: GET_PRODUCTS_SUCCESS,
       payload: res.products
     });
   }).catch((err) => {
-    // Install proper error handling for USER, not just admin!!!
+    
     console.log("fetch err", err)
+    dispatch({
+      type: GET_PRODUCTS_ERROR,
+      payload: err
+    })
   })
 }  
 
 
-export const setProducts = (products) => {
-  return {
-    type: ActionTypes.SET_PRODUCTS,
-    payload: products,
-  };
-};
+// export const setProducts = (products) => {
+//   return {
+//     type: ActionTypes.SET_PRODUCTS,
+//     payload: products,
+//   };
+// };
 
-export const selectedProduct = (product) => {
-  return {
-    type: ActionTypes.SELECTED_PRODUCT,
-    payload: product,
-  };
-};
+// export const selectedProduct = (product) => {
+//   return {
+//     type: ActionTypes.SELECTED_PRODUCT,
+//     payload: product,
+//   };
+// };
 
 // Edit for remove:
 // export const setPRoducts = (products) => {
