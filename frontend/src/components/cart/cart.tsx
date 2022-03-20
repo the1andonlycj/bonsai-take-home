@@ -27,7 +27,7 @@ const TEMPORARY_ITEMS = [
 const Cart = () => {
   const dispatch = useDispatch();
   const _toggleCart = () => {
-    dispatch(ToggleCart())
+    // dispatch(ToggleCart())
   }
 
   const totalPrice = TEMPORARY_ITEMS.reduce((total, { price }) => total + price, 0).toFixed(2);

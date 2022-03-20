@@ -1,8 +1,8 @@
 import { ProductDispatchTypes, GET_PRODUCTS_SUCCESS, GET_PRODUCTS_ERROR, SELECTED_PRODUCT, REMOVE_SELECTED_PRODUCT, TOGGLE_CART, TOGGLE_MODAL } from "../constants/action-types";
-import { IProduct, Variant, SelectableOptions, Option, ProductList } from "../constants/product-types";
+import { IProduct } from "../constants/product-types";
 
 interface IInitialState {
-  products?: ProductList;
+  products?: IProduct[];
   isLoading: boolean;
   isModalOpen: boolean;
   isCartOpen: boolean;
@@ -11,7 +11,7 @@ interface IInitialState {
 
 const initialState: IInitialState = {
   // Is unknown used correctly here?
-  products: [] as unknown as ProductList,
+  products: [],
   isLoading: true,
   isModalOpen: false,
   isCartOpen: false,

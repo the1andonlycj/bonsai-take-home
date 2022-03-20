@@ -1,6 +1,6 @@
 import { FC, ReactElement, useContext, useState } from "react";
 import ProductDetailModal from "../product-detail-modal/product-detail-modal";
-import { IProduct, Variant, SelectableOptions, Option} from "../../redux/constants/product-types";
+import { IProduct, Variant, Option} from "../../redux/constants/product-types";
 import { ToggleModal } from "../../redux/actions/productActions";
 import { useDispatch } from "react-redux";
 

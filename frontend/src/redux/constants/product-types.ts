@@ -1,8 +1,6 @@
-// This file contains all of the types for the app:
-
-export interface ProductList {
-  products: IProduct[];
-}
+// export interface ProductList {
+//   products: IProduct[];
+// }
 
 export type IProduct = {
   name: string;
@@ -18,11 +16,7 @@ export type Variant = {
   image: string;
   isDiscontinued: boolean;
   priceCents: number;
-  selectableOptions: SelectableOptions
-}
-
-export type SelectableOptions = {
-  options: Option[];
+  selectableOptions: Option[];
 }
 
 export type Option = {

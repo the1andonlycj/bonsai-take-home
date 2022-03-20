@@ -1,4 +1,4 @@
-import { IProduct, Variant, SelectableOptions, Option, ProductList } from "./product-types"
+import { IProduct, Variant, Option,  } from "./product-types"
 
 export const GET_PRODUCTS_SUCCESS = "GET_PRODUCTS_SUCCESS";
 export const GET_PRODUCTS_ERROR = "GET_PRODUCTS_ERROR";
@@ -10,7 +10,7 @@ export const TOGGLE_MODAL = "TOGGLE_MODAL";
 
 interface GetProductsSuccess {
   type: typeof GET_PRODUCTS_SUCCESS,
-  payload: ProductList
+  payload: IProduct[]
 }
 
 interface GetProductsError {
