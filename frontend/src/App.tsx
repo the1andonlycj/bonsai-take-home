@@ -5,6 +5,7 @@ import Navigation from './components/navigation/navigation';
 import Storefront from './components/storefront/storefront';
 import ProductDetailModal from './components/product-detail-modal/product-detail-modal';
 
+
 import './App.css';
 
 const App = () => {
@@ -12,7 +13,6 @@ const App = () => {
   return (
     <div className="App">
       <Navigation />
-      <Cart />
       <Storefront />
     </div>
   );

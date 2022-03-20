@@ -24,7 +24,7 @@ interface selectableOptions {
 function VariantDetails(variant: Variant) {
   const [optionsToggled, setOptionsToggled] = useState(false)
   const [options, setOptions] = useState({})
-  console.log("Props inside of VariantDetails", variant)
+  // console.log("Props inside of VariantDetails", variant)
   return (
     <div>
       <div>

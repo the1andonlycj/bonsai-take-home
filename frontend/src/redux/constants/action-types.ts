@@ -1,10 +1,11 @@
-import { IProduct, Variant, SelectableOptions, Option, IModalContext, ProductList } from "./product-types"
+import { IProduct, Variant, SelectableOptions, Option, ProductList } from "./product-types"
 
 export const GET_PRODUCTS_SUCCESS = "GET_PRODUCTS_SUCCESS";
 export const GET_PRODUCTS_ERROR = "GET_PRODUCTS_ERROR";
 export const SELECTED_PRODUCT = "SELECTED_PRODUCT";
 export const REMOVE_SELECTED_PRODUCT = "REMOVE_SELECTED_PRODUCT";
 export const TOGGLE_CART = "TOGGLE_CART";
+export const TOGGLE_MODAL = "TOGGLE_MODAL";
 
 
 interface GetProductsSuccess {
@@ -31,8 +32,11 @@ interface RemoveSelectedProduct {
 }
 
 interface ToggleCart {
-  type: typeof TOGGLE_CART
-  // Something goes here.
+  type: typeof TOGGLE_CART,
 }
 
-export type ProductDispatchTypes = GetProductsSuccess | GetProductsError | SelectedProduct | RemoveSelectedProduct | ToggleCart
+interface ToggleModal {
+  type: typeof TOGGLE_MODAL,
+}
+
+export type ProductDispatchTypes = GetProductsSuccess | GetProductsError | SelectedProduct | RemoveSelectedProduct | ToggleCart | ToggleModal

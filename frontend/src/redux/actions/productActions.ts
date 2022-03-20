@@ -1,21 +1,20 @@
 import { Dispatch } from "redux";
-import { ProductDispatchTypes, GET_PRODUCTS_SUCCESS, GET_PRODUCTS_ERROR, SELECTED_PRODUCT, REMOVE_SELECTED_PRODUCT, TOGGLE_CART } from "../constants/action-types"
+import { ProductDispatchTypes, GET_PRODUCTS_SUCCESS, GET_PRODUCTS_ERROR, SELECTED_PRODUCT, REMOVE_SELECTED_PRODUCT, TOGGLE_CART, TOGGLE_MODAL } from "../constants/action-types";
+import { IProduct } from "../constants/product-types";
 
 export const GetProducts = () => async (dispatch: Dispatch<ProductDispatchTypes>) => {
-  console.log("I'm TRYING MY BEST")
   return await fetch("http://localhost:8000/products", {
     method: "GET",
     headers: { "Content-Type": "application/json" }, 
   }).then((results) => {
-    
     return results.json()
   }).then((res) => {
+    console.log("RES", res)
     dispatch({
       type: GET_PRODUCTS_SUCCESS,
       payload: res.products
     });
   }).catch((err) => {
-    
     console.log("fetch err", err)
     dispatch({
       type: GET_PRODUCTS_ERROR,
@@ -24,7 +23,19 @@ export const GetProducts = () => async (dispatch: Dispatch<ProductDispatchTypes>
   })
 }  
 
+export const ToggleModal = (product: IProduct) => (dispatch: Dispatch<ProductDispatchTypes>) => {
+  dispatch({
+    type: TOGGLE_MODAL,
+    payload: product
+  });
+}
 
+export const ToggleCart = (product: IProduct) => (dispatch: Dispatch<ProductDispatchTypes>) => {
+  dispatch({
+    type: TOGGLE_CART,
+    payload: product
+  });
+}
 // export const setProducts = (products) => {
 //   return {
 //     type: ActionTypes.SET_PRODUCTS,

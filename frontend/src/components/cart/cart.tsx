@@ -1,7 +1,6 @@
-import { useContext } from 'react';
-
+import { useDispatch } from 'react-redux';
 import CartItem from '../cart-item/cart-item';
-import { CartContext } from '../../cart-context';
+import { ToggleCart } from '../../redux/actions/productActions';
 
 import './cart.styles.css';
 
@@ -26,15 +25,17 @@ const TEMPORARY_ITEMS = [
 ];
 
 const Cart = () => {
-  const { setIsCartOpen } = useContext(CartContext);
+  const dispatch = useDispatch();
+  const _toggleCart = () => {
+    dispatch(ToggleCart())
+  }
 
-  const closeCart = () => setIsCartOpen(false);
   const totalPrice = TEMPORARY_ITEMS.reduce((total, { price }) => total + price, 0).toFixed(2);
 
   return (
     <div className="cart-modal">
       <div className="cart-container">
-        <button className="close-button" onClick={closeCart}>
+        <button className="close-button" onClick={_toggleCart}>
           →
         </button>
         <div className="cart-items-container">

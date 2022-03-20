@@ -1,41 +1,26 @@
 import { useState, useEffect, useContext } from 'react';
-
+import { IProduct, Variant, SelectableOptions, Option} from "../../redux/constants/product-types";
 import VariantDetails from './variant-details';
-
+import { ToggleModal } from "../../redux/actions/productActions";
+import { useSelector, useDispatch } from "react-redux";
+import { RootStore } from '../../redux/store';
 
 import './product-detail-modal.css';
 
-export interface IProduct {
-  name: string;
-  description: string;
-  defaultImage: string;
-  variants: Variant[];  
-}
-
-interface Variant {
-  id: string;
-  quantity: number;
-  image: string;
-  isDiscontinued: boolean;
-  priceCents: number;
-  selectableOptions: selectableOptions
-}
-
-interface selectableOptions {
-  options: Option[];
-}
-
-interface Option {
-  type: string;
-  value: string;
-}
-
-const ProductDetailModal = (product: IProduct) => {
+const ProductDetailModal = () => {
+  const selectedProduct = useSelector((state: RootStore) => state.productsList.selectedProduct);
   const [variantsToggled, setVariantsToggled] = useState(false)
-  
-  
-  
-  
+  const dispatch = useDispatch();
+  const _toggleModal = () => {
+    dispatch(ToggleModal({
+      name: '',
+      id: '',
+      description: '',
+      defaultImage: '',
+      variants: []
+    }))
+  }
+    
   let onlyOneVariant = {
     defaultImage: "https://picsum.photos/id/16/200",
     description: "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
@@ -154,8 +139,8 @@ const ProductDetailModal = (product: IProduct) => {
     }[];
   }
 
-  let input = threeVariantsWithTheirOwnSelectableOptions;
-
+  let input = selectedProduct;
+  console.log("INPUT", input)
   // Once you're doing types, make sure to include the input as params here!
   useEffect(() => {
     if(input.variants.length > 1) {
@@ -174,11 +159,8 @@ const ProductDetailModal = (product: IProduct) => {
       </div>
       <div className="modal-column-right">
         <div className="modal-options-container">
-          {/* Why doesn't closeModal work the way close cart does? */}
-          <button 
-          // onClick={}
-          ><strong>X Close</strong></button>
-          {variantsToggled &&
+          <button onClick={_toggleModal}><strong>X Close</strong></button>
+          {variantsToggled ? (
             <div>
               <p>You've got options:</p>
                 <div className="modal-variant-image-container">
@@ -195,7 +177,12 @@ const ProductDetailModal = (product: IProduct) => {
                     />
                   ))}
                 </div>
-            </div>
+            </div>) : 
+            (
+              <div>
+                <h1>Sorry, there are no options for this product.</h1>
+              </div>
+            )
           }
         </div>
       </div>

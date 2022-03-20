@@ -1,17 +1,18 @@
-import { useContext } from "react";
-
-import { CartContext } from "../../cart-context";
-
+import { useDispatch } from "react-redux";
+import { ToggleCart } from "../../redux/actions/productActions";
 import "./navigation.styles.css";
 
 const Navigation = () => {
-  const { isCartOpen, setIsCartOpen } = useContext(CartContext);
+  const dispatch = useDispatch();
+  const _toggleCart = () => {
+    dispatch(ToggleCart())
+  }
 
-  const toggleCart = () => setIsCartOpen(!isCartOpen);
+
 
   return (
     <nav className="navigation-bar">
-      <div className="cart-icon" onClick={toggleCart}>
+      <div className="cart-icon" onClick={_toggleCart}>
         Cart
       </div>
     </nav>

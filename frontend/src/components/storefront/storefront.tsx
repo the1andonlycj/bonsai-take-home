@@ -7,25 +7,30 @@ import Cart from "../cart/cart";
 import { RootStore } from "../../redux/store";
 
 import "./storefront.styles.css";
+import { IProduct } from "../../redux/constants/product-types";
+
 
 const Storefront = () => {
   const dispatch = useDispatch();
   const products = useSelector((state: RootStore) => state.productsList.products);
-  console.log("PRODSWTF", products)
- 
+  const isLoading = useSelector((state: RootStore) => state.productsList.isLoading);
+  const isModalOpen = useSelector((state: RootStore) => state.productsList.isModalOpen);
+  const isCartOpen = useSelector((state: RootStore) => state.productsList.isCartOpen);
+  console.log("ISL, PRODS:", isLoading, products)
+  
   useEffect(() => {
-    // Do we need this?
     dispatch(GetProducts());
   },[])
-
   
+  console.log("ISL, PRODS:", isLoading)
   return (
     <div>
-      <Cart />
-      {/* <ProductDetailModal /> */}
+      {isCartOpen && <Cart />}
+      {isModalOpen && <ProductDetailModal />}
+      
       <div className="products-listing">
-        {products && (
-          products.products.map((productItem) => (
+        {isLoading === false && (
+          products?.map((productItem: IProduct) => (
           <ProductCard key={productItem.id} product={productItem} />
         )))}
       </div>

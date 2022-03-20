@@ -1,6 +1,6 @@
 // This file contains all of the types for the app:
 
-export type ProductList = {
+export interface ProductList {
   products: IProduct[];
 }
 
@@ -28,11 +28,4 @@ export type SelectableOptions = {
 export type Option = {
   type: string;
   value: string;
-}
-
-export type IModalContext = {
-  isModalOpen: boolean;
-  setIsModalOpen: (isModalOpen: boolean) => void;
-  modalDetails: IProduct;
-  setModalDetails: (product: IProduct) => void;
 }
