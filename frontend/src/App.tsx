@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 
 import { CartContext } from './cart-context';
+import { ModalContext } from './modal-context';
 
 import Cart from './components/cart/cart';
 import Navigation from './components/navigation/navigation';
@@ -10,14 +11,14 @@ import ProductDetailModal from './components/product-detail-modal/product-detail
 import './App.css';
 
 const App = () => {
-  const { isOpen } = useContext(CartContext);
-  // If we create modalContext, we can import it here to use the modalContext for the site.
-
+  const { isCartOpen } = useContext(CartContext);
+  const { isModalOpen } = useContext(ModalContext)
+  
   return (
     <div className="App">
-      <ProductDetailModal />
       <Navigation />
-      {isOpen ? <Cart /> : null}
+      {isCartOpen ? <Cart /> : null}
+      {/* {isModalOpen ? <ProductDetailModal /> : null} */}
       <Storefront />
     </div>
   );

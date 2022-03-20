@@ -5,9 +5,9 @@ import { CartContext } from "../../cart-context";
 import "./navigation.styles.css";
 
 const Navigation = () => {
-  const { isOpen, setIsOpen } = useContext(CartContext);
+  const { isCartOpen, setIsCartOpen } = useContext(CartContext);
 
-  const toggleCart = () => setIsOpen(!isOpen);
+  const toggleCart = () => setIsCartOpen(!isCartOpen);
 
   return (
     <nav className="navigation-bar">

@@ -26,9 +26,9 @@ const TEMPORARY_ITEMS = [
 ];
 
 const Cart = () => {
-  const { setIsOpen } = useContext(CartContext);
+  const { setIsCartOpen } = useContext(CartContext);
 
-  const closeCart = () => setIsOpen(false);
+  const closeCart = () => setIsCartOpen(false);
   const totalPrice = TEMPORARY_ITEMS.reduce((total, { price }) => total + price, 0).toFixed(2);
 
   return (

@@ -1,20 +1,41 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+
+import VariantDetails from './variant-details';
+import { ModalContext } from '../../modal-context';
 
 import './product-detail-modal.css';
-import VariantDetails from './variant-details';
 
-const ProductDetailModal = () => {
+export interface IProduct {
+  name: string;
+  description: string;
+  defaultImage: string;
+  variants: Variant[];  
+}
+
+interface Variant {
+  id: string;
+  quantity: number;
+  image: string;
+  isDiscontinued: boolean;
+  priceCents: number;
+  selectableOptions: selectableOptions
+}
+
+interface selectableOptions {
+  options: Option[];
+}
+
+interface Option {
+  type: string;
+  value: string;
+}
+
+const ProductDetailModal = (product: IProduct) => {
   const [variantsToggled, setVariantsToggled] = useState(false)
-
-
-  // We're passing in THE ENTIRE PRODUCT here, not just the variant information, because we won't have name or description otherwise. 
-  // Before modal is deployed, we need to know what kind of variants we're dealing with.
-  // If we have a card selector layout for variants, we can then just have a simpler card structure for the variant itself, including its selectableOptions. 
-  // if(variants.length = 1) {show a single card with its options}
-  // if(variants.length > 1) {show something different so the user can understand that there are multiple variants, each of which, when toggled, will show the regular single card with its options modal}
-  // We have DIFFERENT IMAGES for those variants, so we could show it using those images. Perhaps we take a few colors from Bonsai's pages to make a pallette, use those colors to put some borders around the boxes that the photos are in. If we do that, the view doesn't have to change too much. 
-
-  // There can be many variants or just the one. If we pass in the variant array, it will look something like this: 
+  const { setIsModalOpen } = useContext(ModalContext);
+  
+  const closeModal = () => setIsModalOpen(false);
+  
   let onlyOneVariant = {
     defaultImage: "https://picsum.photos/id/16/200",
     description: "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
@@ -153,8 +174,8 @@ const ProductDetailModal = () => {
       </div>
       <div className="modal-column-right">
         <div className="modal-options-container">
-          {/* INSTALL ONCLICK TO CLOSE MODAL: PASS FUNCTION DOWN FROM PARENT PRODUCT-CARD */}
-          <button><strong>X Close</strong></button>
+          {/* Why doesn't closeModal work the way close cart does? */}
+          <button onClick={closeModal}><strong>X Close</strong></button>
           {variantsToggled &&
             <div>
               <p>You've got options:</p>

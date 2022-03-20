@@ -1,9 +1,19 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../../components/product-card/product-card";
+import { useDispatch, useSelector } from "react-redux";
+import { setProducts } from "../../redux/actions/productActions";
+import ProductDetailModal from "../product-detail-modal/product-detail-modal";
+import Cart from "../cart/cart";
 
 import "./storefront.styles.css";
 
 const Storefront = () => {
+  const products = useSelector((state) => state);
+  const dispatch = useDispatch();
+  console.log("PRODSWTF", products)
+
+  // Once the products are received from the API and set in the store, we will DESTRUCTURE THEM HERE.
+
   const [productList, setProductList] = useState<Product[]>([]);
   interface Product {
     id: string;
@@ -41,7 +51,7 @@ const Storefront = () => {
       }).then((results) => {
         return results.json()
       }).then((res) => {
-        setProductList(res.products)
+        dispatch(setProducts(res.products));
       }).catch((err) => {
         // Install proper error handling for USER, not just admin!!!
         console.log("fetch err", err)
@@ -55,9 +65,11 @@ const Storefront = () => {
   // console.log("PRODUCTLIST:", productList)
   return (
     <div>
+      <Cart />
+      {/* <ProductDetailModal /> */}
       <div className="products-listing">
-        {productList.length > 0 && (
-          productList.map((productItem) => (
+        {products.length > 0 && (
+          products.map((productItem) => (
           <ProductCard key={productItem.id} product={productItem} />
         )))}
       </div>
