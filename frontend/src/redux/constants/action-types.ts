@@ -5,6 +5,7 @@ export const SELECTED_PRODUCT = "SELECTED_PRODUCT";
 export const REMOVE_SELECTED_PRODUCT = "REMOVE_SELECTED_PRODUCT";
 export const TOGGLE_CART = "TOGGLE_CART";
 
+
 interface SetProducts {
   type: typeof SET_PRODUCTS,
   payload: ProductList
@@ -26,3 +27,5 @@ interface ToggleCart {
   type: typeof TOGGLE_CART
   // Something goes here.
 }
+
+export type ProductDispatchTypes = SetProducts | SelectedProduct | RemoveSelectedProduct | ToggleCart

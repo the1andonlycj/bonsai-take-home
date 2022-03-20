@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../../components/product-card/product-card";
 import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../../redux/actions/productActions";
+import { GetProducts } from "../../redux/actions/productActions";
 import ProductDetailModal from "../product-detail-modal/product-detail-modal";
 import Cart from "../cart/cart";
 
@@ -44,25 +44,11 @@ const Storefront = () => {
   }
 
   useEffect(() => {
-    async function getProducts() {
-      return await fetch("http://localhost:8000/products", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }, 
-      }).then((results) => {
-        return results.json()
-      }).then((res) => {
-        dispatch(setProducts(res.products));
-      }).catch((err) => {
-        // Install proper error handling for USER, not just admin!!!
-        console.log("fetch err", err)
-      })
-    }  
-    getProducts()
-    
+    GetProducts();
     // Empty array, in spite of warning, to not cause infinite loop:
   },[])
 
-  // console.log("PRODUCTLIST:", productList)
+  
   return (
     <div>
       <Cart />
