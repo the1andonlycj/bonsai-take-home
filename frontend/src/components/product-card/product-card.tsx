@@ -5,7 +5,6 @@ import { ToggleModal } from "../../redux/actions/productActions";
 import { useDispatch } from "react-redux";
 
 import "./product-card.styles.css";
-import { forEachTrailingCommentRange } from "typescript";
 
 interface IProductCardProps {
   product: IProduct;
@@ -18,22 +17,33 @@ const ProductCard: FC<IProductCardProps> = ({ product }): ReactElement => {
   }
   const { name, defaultImage, description, variants } = product;
   
+  let groupedTypes;
+
   useEffect(() => {
-    let optionsObject: object = {}
-    let typeObject: {} = {}
-    variants.map((variant) => {
-      // console.log("VART", variant.selectableOptions)
-      variant.selectableOptions.map((option) => {
-        if(typeObject.hasOwnProperty(option.type)) {
-          typeObject[option.type].push(option.value)
-        } else {
-          typeObject[option.type] = [option.value];
-        }
-      })
-      console.log("TYPARR", typeObject)
+    const allOptions = variants.map((variant) => {
+      return variant.selectableOptions
     })
+
+    let flattenedOptions: Option[] = allOptions.reduce(
+      function(previousValue, currentValue) {
+        return previousValue.concat(currentValue)
+      },
+      []
+    )
+      // I know that using any is bad practice, but I really need to talk to someone about this situation here:
+    function groupBy(objectArray: any, property: any) {
+      return objectArray.reduce(function (acc: any, obj: any) {
+        let key = obj[property]
+        if (!acc[key]) {
+          acc[key] = []
+        }
+        acc[key].push(obj)
+        return acc
+      }, {})
+    }
     
-    // DROPDOWN DATA HAS BEEN MADE, We just need to make the elements.
+    groupedTypes = groupBy(flattenedOptions, 'type')
+    console.log("GT", groupedTypes)
   }, [])
   
 
