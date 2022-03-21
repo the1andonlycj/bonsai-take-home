@@ -1,5 +1,5 @@
-import { useState, useEffect, useContext } from 'react';
-import { IProduct, Variant, Option} from "../../redux/constants/product-types";
+import { useState, useEffect } from 'react';
+import { Variant } from "../../redux/constants/product-types";
 import VariantDetails from './variant-details';
 import { ToggleModal } from "../../redux/actions/productActions";
 import { useSelector, useDispatch } from "react-redux";
@@ -21,11 +21,8 @@ const ProductDetailModal = () => {
     }))
   }
 
-  let input = selectedProduct;
-  console.log("INPUT", input)
-  // Once you're doing types, make sure to include the input as params here!
   useEffect(() => {
-    if(input.variants.length > 1) {
+    if(selectedProduct.variants.length > 1) {
       setVariantsToggled(true)
     };
   }, [])
@@ -33,10 +30,10 @@ const ProductDetailModal = () => {
   return (
     <div className="product-detail-modal">
       <div className="modal-column-left">
-        <img src={input.defaultImage} alt={input.name}></img>
+        <img src={selectedProduct.defaultImage} alt={selectedProduct.name}></img>
         <div className='modal-text-container'>
-          <h2>{input.name}</h2>
-          <p>{input.description}</p>
+          <h2>{selectedProduct.name}</h2>
+          <p>{selectedProduct.description}</p>
         </div>
       </div>
       <div className="modal-column-right">
@@ -46,7 +43,7 @@ const ProductDetailModal = () => {
             <div>
               <p>You've got options:</p>
                 <div className="modal-variant-image-container">
-                  {input.variants.map((variant: Variant, index: number) => (
+                  {selectedProduct.variants.map((variant: Variant) => (
                     <VariantDetails 
                       id={variant.id} 
                       image={variant.image} 
@@ -54,7 +51,6 @@ const ProductDetailModal = () => {
                       priceCents={variant.priceCents} 
                       quantity={variant.quantity} 
                       selectableOptions={variant.selectableOptions} 
-                      number={index}
                     />
                   ))}
                 </div>

@@ -1,38 +1,35 @@
-import { useState } from 'react';
 import OptionDetails from './option-details';
-
-interface Variant {
-  id: string;
-  image: string;
-  isDiscontinued: boolean;
-  priceCents: number;
-  quantity: number;
-  selectableOptions: {
-      type: string;
-      value: string;
-  }[];
-  number: number;
-}
-
-interface selectableOptions {
-  type: string;
-  value: string;
-  // Does this one need the array at the end?
-};
-
+import { Variant, Option } from  "../../redux/constants/product-types";
+import { SelectedOption } from '../../redux/actions/productActions';
+import { useDispatch } from 'react-redux';
 
 function VariantDetails(variant: Variant) {
-  const [optionsToggled, setOptionsToggled] = useState(false)
-  const [options, setOptions] = useState({})
-  // console.log("Props inside of VariantDetails", variant)
+  console.log("Variant:", variant)
+  const dispatch = useDispatch();
+  // what they chose gets sent to state
+  // cart button appears
+  // styling changes to show what was selected
+
+  // Get the categories and combine their potential values into dropdowns.
+  // Allow user to select those dropdowns.
+  // Check if the dropdowns represent a valid product before allowing them to send it to the cart.
+  variant.selectableOptions.map((option) => {
+    console.log("OPTIONS", option.type)
+  })
+
+
+
+  // const userSelected = (option) => {
+  //   dispatch(SelectedOption({
+      
+  //   }))
+
   return (
     <div>
       <div>
-        <img className="modal-variant-image" src={variant.image} 
-        // alt={`${variant.id} Variant: ${index + 1}`} 
-        onClick={()=>{setOptionsToggled(true)}}></img>
-        {variant.selectableOptions.map((selectableOptions: selectableOptions) => (
-          <OptionDetails type={selectableOptions.type} value={selectableOptions.value}                        
+        <img className="modal-variant-image" src={variant.image}></img>
+        {variant.selectableOptions.map((selectableOption: Option) => (
+          <OptionDetails type={selectableOption.type} value={selectableOption.value}
           />
         ))}
       </div>

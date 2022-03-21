@@ -1,7 +1,3 @@
-// export interface ProductList {
-//   products: IProduct[];
-// }
-
 export type IProduct = {
   name: string;
   id: string;

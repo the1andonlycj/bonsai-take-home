@@ -6,6 +6,7 @@ export const SELECTED_PRODUCT = "SELECTED_PRODUCT";
 export const REMOVE_SELECTED_PRODUCT = "REMOVE_SELECTED_PRODUCT";
 export const TOGGLE_CART = "TOGGLE_CART";
 export const TOGGLE_MODAL = "TOGGLE_MODAL";
+export const SELECTED_OPTION = "SELECTED_OPTION";
 
 
 interface GetProductsSuccess {
@@ -39,4 +40,9 @@ interface ToggleModal {
   type: typeof TOGGLE_MODAL,
 }
 
-export type ProductDispatchTypes = GetProductsSuccess | GetProductsError | SelectedProduct | RemoveSelectedProduct | ToggleCart | ToggleModal
+interface SelectedOption {
+  type: typeof SELECTED_OPTION,
+  payload: Option
+}
+
+export type ProductDispatchTypes = GetProductsSuccess | GetProductsError | SelectedProduct | RemoveSelectedProduct | ToggleCart | ToggleModal | SelectedOption

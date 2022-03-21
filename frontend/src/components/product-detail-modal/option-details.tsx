@@ -1,11 +1,7 @@
+import { Option } from "../../redux/constants/product-types";
 
-interface selectableOptions {
-  type: string;
-  value: string;
-};
-
-function OptionDetails(selectableOptions: selectableOptions) {
-  // console.log("SELECOPTIONS?", selectableOptions)
+function OptionDetails(selectableOptions: Option) {
+  
   return (
     <>
       <h3>{selectableOptions.type}: {selectableOptions.value}</h3>

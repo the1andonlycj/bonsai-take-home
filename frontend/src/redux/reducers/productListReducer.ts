@@ -1,5 +1,5 @@
-import { ProductDispatchTypes, GET_PRODUCTS_SUCCESS, GET_PRODUCTS_ERROR, SELECTED_PRODUCT, REMOVE_SELECTED_PRODUCT, TOGGLE_CART, TOGGLE_MODAL } from "../constants/action-types";
-import { IProduct } from "../constants/product-types";
+import { ProductDispatchTypes, GET_PRODUCTS_SUCCESS, GET_PRODUCTS_ERROR, SELECTED_OPTION, REMOVE_SELECTED_PRODUCT, TOGGLE_CART, TOGGLE_MODAL } from "../constants/action-types";
+import { IProduct, Option } from "../constants/product-types";
 
 interface IInitialState {
   products?: IProduct[];
@@ -7,6 +7,7 @@ interface IInitialState {
   isModalOpen: boolean;
   isCartOpen: boolean;
   selectedProduct: IProduct;
+  selectedOption: Option;
 }
 
 const initialState: IInitialState = {
@@ -21,6 +22,10 @@ const initialState: IInitialState = {
     description: '', 
     defaultImage: '', 
     variants: []
+  },
+  selectedOption: {
+    value: '', 
+    type: ''
   }
   
 }
@@ -33,6 +38,8 @@ export const productListReducer = (state: IInitialState = initialState, {type, p
       return {...state, isModalOpen: !state.isModalOpen, selectedProduct: payload}
     case TOGGLE_CART:
       return {...state, isCartOpen: !state.isCartOpen, }
+    case SELECTED_OPTION: 
+      return {...state, selectedOption: payload}
     default:
       return state;
   }

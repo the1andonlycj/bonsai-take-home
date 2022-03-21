@@ -16,13 +16,11 @@ const Storefront = () => {
   const isLoading = useSelector((state: RootStore) => state.productsList.isLoading);
   const isModalOpen = useSelector((state: RootStore) => state.productsList.isModalOpen);
   const isCartOpen = useSelector((state: RootStore) => state.productsList.isCartOpen);
-  console.log("ISL, PRODS:", isLoading, products)
   
   useEffect(() => {
     dispatch(GetProducts());
   },[])
   
-  console.log("ISL, PRODS:", isLoading)
   return (
     <div>
       {isCartOpen && <Cart />}

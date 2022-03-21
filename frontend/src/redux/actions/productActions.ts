@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
-import { ProductDispatchTypes, GET_PRODUCTS_SUCCESS, GET_PRODUCTS_ERROR, SELECTED_PRODUCT, REMOVE_SELECTED_PRODUCT, TOGGLE_CART, TOGGLE_MODAL } from "../constants/action-types";
-import { IProduct } from "../constants/product-types";
+import { ProductDispatchTypes, GET_PRODUCTS_SUCCESS, GET_PRODUCTS_ERROR, SELECTED_PRODUCT, REMOVE_SELECTED_PRODUCT, TOGGLE_CART, TOGGLE_MODAL, SELECTED_OPTION } from "../constants/action-types";
+import { IProduct, Option } from "../constants/product-types";
 
 export const GetProducts = () => async (dispatch: Dispatch<ProductDispatchTypes>) => {
   return await fetch("http://localhost:8000/products", {
@@ -9,7 +9,6 @@ export const GetProducts = () => async (dispatch: Dispatch<ProductDispatchTypes>
   }).then((results) => {
     return results.json()
   }).then((res) => {
-    console.log("RES", res)
     dispatch({
       type: GET_PRODUCTS_SUCCESS,
       payload: res.products
@@ -34,6 +33,13 @@ export const ToggleCart = (product: IProduct) => (dispatch: Dispatch<ProductDisp
   dispatch({
     type: TOGGLE_CART,
     payload: product
+  });
+}
+
+export const SelectedOption = (option: Option) => (dispatch: Dispatch<ProductDispatchTypes>) => {
+  dispatch({
+    type: SELECTED_OPTION,
+    payload: option
   });
 }
 // export const setProducts = (products) => {
