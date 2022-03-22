@@ -30,3 +30,11 @@ export type Option = {
 export type SelectableOption = {
   [key: string]: string[]
 }
+
+export type CartItem = {
+  image: string;
+  price: number;
+  name: string;
+  chosenOptions: Option[];
+  quantity: number;
+}

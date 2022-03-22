@@ -11,7 +11,6 @@ interface IInitialState {
 }
 
 const initialState: IInitialState = {
-  // Is unknown used correctly here?
   products: [],
   isLoading: true,
   isModalOpen: false,
@@ -28,7 +27,6 @@ const initialState: IInitialState = {
     value: '', 
     type: ''
   }
-  
 }
 
 export const productListReducer = (state: IInitialState = initialState, {type, payload} : any) : IInitialState => {

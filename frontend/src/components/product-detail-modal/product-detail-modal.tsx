@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import OptionDetail from './option-detail';
 import { Variant } from "../../redux/constants/product-types";
-import VariantDetails from './variant-details';
 import { ToggleModal } from "../../redux/actions/productActions";
 import { useSelector, useDispatch } from "react-redux";
 import { RootStore } from '../../redux/store';
@@ -46,6 +45,21 @@ const ProductDetailModal = () => {
     }
   }, [])
 
+  // FOR THE OPTIONS SELECTIONS AND ADDING TO CART: Establish a useEffect that triggers when the options selected change. That may require setting something into the redux store. 
+  // Its duties: check to see if the options match an available product.
+  // IF SO: reveal the cart button.
+  // IF NOT: reveal a message apologizing for not having the variant.
+
+  // FOR SINGLE-VARIANT PRODUCTS: establish a reuseable button for adding something to cart. We will trigger the same button functionality after the selectableOptions variants are triggered.
+  
+  // CART ITEM NEEDS:
+  // image. 
+  // price.
+  // name.
+  // chosen options.
+  // quantity (with editable field dropdown? DROPDOWN IS EASIER AND MORE ENFORCIBLE.)
+
+
   console.log("Let'sDoIt:", selectedProduct)
   
   return (
@@ -85,7 +99,15 @@ const ProductDetailModal = () => {
                 <button>Add to Cart</button>
               </div>
             ) 
-            : (<h1>We're fresh out, boss.</h1>)
+            : (
+              <div>
+                <h1>Unfortunately, we're fresh out of stock on this one.</h1>
+                <img src={selectedProduct.variants[0].image}></img>
+                <p>
+                  With enough interest, it may be available again. The standard version comes with {selectedProduct.variants[0].selectableOptions[0].value.toLowerCase()} {selectedProduct.variants[0].selectableOptions[0].type.toLowerCase()} for only ${((selectedProduct.variants[0].priceCents) / 100 ).toFixed(2)}. 
+                </p>
+              </div>
+            )
           }
         </div>
       </div>
