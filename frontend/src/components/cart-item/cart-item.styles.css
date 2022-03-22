@@ -23,7 +23,8 @@
 }
 
 .remove-button {
-  background-color: aquamarine;
+  background-color: #42692f;
+  color: white;
   width: 50%;
   margin: auto;
   margin-top: .5em;

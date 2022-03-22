@@ -11,7 +11,7 @@ import './product-detail-modal.css';
 // In order to ensure that options have been selected, we need to know how many options have been presented to the user.
 // Then, we need to know what they've selected for all of those options.
 // Once we know what they've set for all included options, we have to compare their selections to the available variants and ensure that they match.
-// If they match, we show them the add-to-cart button. 
+// If they match, we show them the add-to-cart button and allow them to add to cart.
 // If they do not match, we show an apology.
 // All of this processing needs to happen at a higher level than the option itself. The option-detail modal must pass the information up to the store so it can be checked here, so that this page can display the appropriate information. 
 
