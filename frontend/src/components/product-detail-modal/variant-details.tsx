@@ -1,37 +1,33 @@
-import OptionDetails from './option-details';
-import { Variant, Option } from  "../../redux/constants/product-types";
+import OptionDetail from './option-detail';
+import { Variant } from  "../../redux/constants/product-types";
 import { SelectedOption } from '../../redux/actions/productActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootStore } from '../../redux/store';
+import { useEffect } from 'react';
+import { keyboard } from '@testing-library/user-event/dist/keyboard';
 
 function VariantDetails(variant: Variant) {
-  console.log("Variant:", variant)
-  const dispatch = useDispatch();
-  // what they chose gets sent to state
-  // cart button appears
-  // styling changes to show what was selected
+  const listedOptions = useSelector((state: RootStore) => state.productsList.selectedProduct.groupedOptions);
+  
+  
 
-  // Get the categories and combine their potential values into dropdowns.
-  // Allow user to select those dropdowns.
-  // Check if the dropdowns represent a valid product before allowing them to send it to the cart.
-  variant.selectableOptions.map((option) => {
-    console.log("OPTIONS", option.type)
-  })
-
-
-
-  // const userSelected = (option) => {
-  //   dispatch(SelectedOption({
-      
-  //   }))
+  // console.log("DoItDo?", listedOptions)
 
   return (
     <div>
       <div>
         <img className="modal-variant-image" src={variant.image}></img>
-        {variant.selectableOptions.map((selectableOption: Option) => (
-          <OptionDetails type={selectableOption.type} value={selectableOption.value}
-          />
-        ))}
+        {Object.keys(listedOptions).length > 0 &&
+          Object.keys(listedOptions).map((type) => (
+            <OptionDetail 
+              type={type}
+              values={listedOptions[type]}
+            />
+
+          ))
+            
+        }
+        
       </div>
     </div>
 

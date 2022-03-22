@@ -4,6 +4,7 @@ export type IProduct = {
   description: string;
   defaultImage: string;
   variants: Variant[];  
+  groupedOptions?: GroupedOptions;
 }
 
 export type Variant = {
@@ -18,4 +19,12 @@ export type Variant = {
 export type Option = {
   type: string;
   value: string;
+}
+
+// export type GroupedOptions = {
+  
+// }
+
+export type SelectableOption = {
+  [key: string]: string[]
 }

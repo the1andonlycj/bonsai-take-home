@@ -17,7 +17,7 @@ const ProductDetailModal = () => {
       id: '',
       description: '',
       defaultImage: '',
-      variants: []
+      variants: [],
     }))
   }
 
@@ -51,6 +51,7 @@ const ProductDetailModal = () => {
                       priceCents={variant.priceCents} 
                       quantity={variant.quantity} 
                       selectableOptions={variant.selectableOptions} 
+                      key={variant.id}
                     />
                   ))}
                 </div>

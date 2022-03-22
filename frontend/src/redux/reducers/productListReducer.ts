@@ -21,7 +21,7 @@ const initialState: IInitialState = {
     id: '', 
     description: '', 
     defaultImage: '', 
-    variants: []
+    variants: [],
   },
   selectedOption: {
     value: '', 
