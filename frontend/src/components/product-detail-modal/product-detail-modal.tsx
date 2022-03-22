@@ -92,18 +92,7 @@ const ProductDetailModal = () => {
       _toggleModalClosed()
     }
   }
-  // FOR THE OPTIONS SELECTIONS AND ADDING TO CART: Establish a useEffect that triggers when the options selected change. That may require setting something into the redux store. 
-  // Its duties: check to see if the options match an available product.
-  // IF SO: reveal the cart button.
-  // IF NOT: reveal a message apologizing for not having the variant.
 
-  // CART ITEM NEEDS:
-  // image. 
-  // price.
-  // name.
-  // chosen options.
-  // quantity (with editable field dropdown? DROPDOWN IS EASIER AND MORE ENFORCIBLE.)
-  
   return (
     <div className="product-detail-modal">
       <div className="modal-column-left">
@@ -117,9 +106,10 @@ const ProductDetailModal = () => {
         <div className="modal-options-container">
           <button onClick={_toggleModalClosed}><strong>X Close</strong></button>
           {variantsToggled ? (
-            <div>
-              <p>You've got options:</p>
-              <div className="modal-variant-image-container">
+            <div className="modal-selectors-container">
+              <h1>You've got options:</h1>
+              <div className="options-container">
+                <p>Please select your</p>
                 {Object.keys(listedOptions).length > 0 &&
                   Object.keys(listedOptions).map((type: string, index: number) => (
                     <OptionDetail 
@@ -144,11 +134,13 @@ const ProductDetailModal = () => {
             ) 
             : (
               <div>
+                {/* I don't think there's an instance wherein this code will naturally run. */}
                 <h1>Unfortunately, we're fresh out of stock on this one.</h1>
                 <img src={selectedProduct.variants[0].image}></img>
                 <p>
                   With enough interest, it may be available again. The standard version comes with {selectedProduct.variants[0].selectableOptions[0].value.toLowerCase()} {selectedProduct.variants[0].selectableOptions[0].type.toLowerCase()} for only ${((selectedProduct.variants[0].priceCents) / 100 ).toFixed(2)}. 
                 </p>
+                <button onClick={()=>{alert('This feature needs to be linked to the database!')}} >Let us know if you'd like to be notified when it comes back in stock.</button>
               </div>
             )
           }

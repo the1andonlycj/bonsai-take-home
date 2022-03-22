@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './option-detail.css';
 
 interface IProps {
   type: string,
@@ -23,11 +24,11 @@ function OptionDetail({type, values}: IProps) {
 
   const Dropdown = ({ label, value, options, onChange }: IPropsDropDown) => {
     return (
-      <label>
-        {label}
-        <select value={value} onChange={onChange}>
+      <label className="option-detail">
+        {label}: &nbsp;&nbsp;&nbsp;
+        <select className="option" value={value} onChange={onChange}>
           {options.map((option) => (
-            <option value={option}>{option}</option>
+            <option className="option" value={option}>{option}</option>
           ))}
         </select>
       </label>
