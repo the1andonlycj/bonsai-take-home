@@ -1,8 +1,8 @@
 import { Dispatch } from "redux";
-import { ProductDispatchTypes, GET_PRODUCTS_SUCCESS, GET_PRODUCTS_ERROR, SELECTED_PRODUCT, REMOVE_SELECTED_PRODUCT, TOGGLE_CART, TOGGLE_MODAL, SELECTED_OPTION, ADD_TO_CART, RESET_CART } from "../constants/action-types";
+import { DispatchTypes, GET_PRODUCTS_SUCCESS, GET_PRODUCTS_ERROR, SELECTED_PRODUCT, REMOVE_SELECTED_PRODUCT, TOGGLE_CART, TOGGLE_MODAL, SELECTED_OPTION, ADD_TO_CART, UPDATE_CART } from "../constants/action-types";
 import { IProduct, Option, Variant, ICartItem } from "../constants/product-types";
 
-export const GetProducts = () => async (dispatch: Dispatch<ProductDispatchTypes>) => {
+export const GetProducts = () => async (dispatch: Dispatch<DispatchTypes>) => {
   return await fetch("http://localhost:8000/products", {
     method: "GET",
     headers: { "Content-Type": "application/json" }, 
@@ -40,54 +40,16 @@ export const GetProducts = () => async (dispatch: Dispatch<ProductDispatchTypes>
   })
 }  
 
-export const ToggleModal = (product: IProduct) => (dispatch: Dispatch<ProductDispatchTypes>) => {
+export const ToggleModal = (product: IProduct) => (dispatch: Dispatch<DispatchTypes>) => {
   dispatch({
     type: TOGGLE_MODAL,
     payload: product
   });
 }
 
-export const ToggleCart = (payload: boolean) => (dispatch: Dispatch<ProductDispatchTypes>) => {
-  dispatch({
-    type: TOGGLE_CART,
-    payload: payload
-  });
-}
-
-export const SelectedOption = (option: Option) => (dispatch: Dispatch<ProductDispatchTypes>) => {
+export const SelectedOption = (option: Option) => (dispatch: Dispatch<DispatchTypes>) => {
   dispatch({
     type: SELECTED_OPTION,
     payload: option
   });
 }
-
-export const AddToCart = (product: ICartItem) => (dispatch: Dispatch<ProductDispatchTypes>) => {
-  console.log("PRODUCT GOING INTO CART:", product)
-  dispatch({
-    type: ADD_TO_CART,
-    payload: product
-  });
-}
-
-export const ResetCart = (cartItems: ICartItem[]) => (dispatch: Dispatch<ProductDispatchTypes>) => {
-  console.log("PRODUCTS GOING BACK INTO CART AFTER REMOVAL:", cartItems)
-  dispatch({
-    type: RESET_CART,
-    payload: cartItems
-  });
-}
-
-// export const selectedProduct = (product) => {
-//   return {
-//     type: ActionTypes.SELECTED_PRODUCT,
-//     payload: product,
-//   };
-// };
-
-// Edit for remove:
-// export const setPRoducts = (products) => {
-//   return {
-//     type: ActionTypes.SET_PRODUCTS,
-//     payload: products,
-//   };
-// };

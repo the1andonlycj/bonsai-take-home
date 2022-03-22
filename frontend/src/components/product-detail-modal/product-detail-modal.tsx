@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import OptionDetail from './option-detail';
 import { Variant } from "../../redux/constants/product-types";
-import { AddToCart, ToggleModal, ToggleCart } from "../../redux/actions/productActions";
+import { ToggleModal } from "../../redux/actions/productActions";
 import { useSelector, useDispatch } from "react-redux";
 import { RootStore } from '../../redux/store';
 
 import './product-detail-modal.css';
+import { AddToCart, ToggleCart } from '../../redux/actions/cartActions';
 
 
 // In order to ensure that options have been selected, we need to know how many options have been presented to the user.

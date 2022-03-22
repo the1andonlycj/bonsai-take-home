@@ -2,7 +2,7 @@ import { FC, ReactElement, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ICartItem } from '../../redux/constants/product-types';
 import { RootStore } from '../../redux/store';
-import { ResetCart } from '../../redux/actions/productActions';
+import { UpdateCart } from '../../redux/actions/cartActions';
 import './cart-item.styles.css';
 
 // Cart needs all of this information, but it also needs to display the options that were chosen. 
@@ -21,15 +21,13 @@ const CartItem: FC<ICartItemProps> = ({ name, imageSrc, quantityAvailable, quant
   const removeProduct = (e: React.MouseEvent<HTMLElement>) => {
     // This almost removes the product we're trying to get rid of, but fails because it's still trying to access the attributes of the item. Maybe a useEffect will solve the issue?
     for (let i = cartProducts.length - 1; i >= 0; --i) {
-      if (cartProducts[i].id === e.target.id) {
-        console.log("FOUND THE MATCH")
-          cartProducts.splice(i,1);
+      let localCart = cartProducts;
+      if (localCart[i].id === e.target.id) {
+        localCart.splice(i,1);
       }
-      console.log("CARTPRODS", cartProducts)
-      dispatch(ResetCart(cartProducts))
+      dispatch(UpdateCart(localCart))
     }
   }
-
   
   const setQuantity = (e: any) => {
     setSelectedQuantity(e.target.value)
@@ -37,9 +35,8 @@ const CartItem: FC<ICartItemProps> = ({ name, imageSrc, quantityAvailable, quant
       if (cartProducts[i].id === e.target.id) {
         cartProducts[i].quantityDesired = Number(e.target.value)
       }
-      dispatch(ResetCart(cartProducts))
+      dispatch(UpdateCart(cartProducts))
     }
-
   }
   
   // Dropdown Number List:

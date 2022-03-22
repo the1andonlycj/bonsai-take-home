@@ -1,6 +1,7 @@
 import { FC, ReactElement } from "react";
 import { IProduct } from "../../redux/constants/product-types";
-import { ToggleCart, ToggleModal } from "../../redux/actions/productActions";
+import { ToggleModal } from "../../redux/actions/productActions";
+// import { ToggleCart } from "../../redux/actions/cartActions";
 import { useDispatch } from "react-redux";
 
 import "./product-card.styles.css";

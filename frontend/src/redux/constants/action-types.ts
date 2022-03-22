@@ -8,7 +8,7 @@ export const TOGGLE_CART = "TOGGLE_CART";
 export const TOGGLE_MODAL = "TOGGLE_MODAL";
 export const SELECTED_OPTION = "SELECTED_OPTION";
 export const ADD_TO_CART = "ADD_TO_CART";
-export const RESET_CART = "RESET_CART";
+export const UPDATE_CART = "UPDATE_CART";
 
 
 interface GetProductsSuccess {
@@ -50,9 +50,9 @@ interface AddToCart {
   payload: ICartItem
 }
 
-interface ResetCart {
-  type: typeof RESET_CART,
+interface UpdateCart {
+  type: typeof UPDATE_CART,
   payload: ICartItem[]
 }
 
-export type ProductDispatchTypes = GetProductsSuccess | GetProductsError | SelectedProduct | RemoveSelectedProduct | ToggleCart | ToggleModal | SelectedOption | AddToCart | ResetCart
+export type DispatchTypes = GetProductsSuccess | GetProductsError | SelectedProduct | RemoveSelectedProduct | ToggleCart | ToggleModal | SelectedOption | AddToCart | UpdateCart

@@ -1,4 +1,4 @@
-import { ProductDispatchTypes, GET_PRODUCTS_SUCCESS, GET_PRODUCTS_ERROR, SELECTED_OPTION, REMOVE_SELECTED_PRODUCT, TOGGLE_CART, TOGGLE_MODAL, ADD_TO_CART } from "../constants/action-types";
+import { DispatchTypes, GET_PRODUCTS_SUCCESS, GET_PRODUCTS_ERROR, SELECTED_OPTION, REMOVE_SELECTED_PRODUCT, TOGGLE_CART, TOGGLE_MODAL, ADD_TO_CART } from "../constants/action-types";
 import { IProduct, Option, ICartItem } from "../constants/product-types";
 
 interface IInitialState {

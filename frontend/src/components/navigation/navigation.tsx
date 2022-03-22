@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { ToggleCart } from "../../redux/actions/productActions";
+import { ToggleCart } from "../../redux/actions/cartActions";
 import "./navigation.styles.css";
 
 const Navigation = () => {

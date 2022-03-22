@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ICartItem } from '../../redux/constants/product-types';
 import CartItem from '../cart-item/cart-item';
 import { RootStore } from '../../redux/store';
-import { ToggleCart } from '../../redux/actions/productActions';
+import { ToggleCart } from '../../redux/actions/cartActions';
 
 import './cart.styles.css';
 
