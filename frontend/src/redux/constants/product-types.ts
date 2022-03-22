@@ -4,7 +4,9 @@ export type IProduct = {
   description: string;
   defaultImage: string;
   variants: Variant[];  
+  // Fix?
   groupedOptions?: GroupedOptions;
+  isDiscontinued: boolean;
 }
 
 export type Variant = {

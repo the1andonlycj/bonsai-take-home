@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { Option } from "../../redux/constants/product-types";
-import { SelectableOption } from "../../redux/constants/product-types";
 
 interface IProps {
   type: string,
@@ -39,13 +37,9 @@ function OptionDetail({type, values}: IProps) {
 
   return (
     <>
-      {/* {filteredValues.map((value: string) => ( */}
-        <Dropdown label={type} value={selected} options={filteredValues} onChange={setOption} />
-      {/* ))} */}
+      <Dropdown label={type} value={selected} options={filteredValues} onChange={setOption} />
     </>
   )
 }
 
 export default OptionDetail
-
-// IDEAL: color: [red, blue, green], material: [stuff, thing, doodad]

@@ -22,6 +22,7 @@ const initialState: IInitialState = {
     description: '', 
     defaultImage: '', 
     variants: [],
+    isDiscontinued: false
   },
   selectedOption: {
     value: '', 
