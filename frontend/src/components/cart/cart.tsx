@@ -1,37 +1,21 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { ICartItem } from '../../redux/constants/product-types';
 import CartItem from '../cart-item/cart-item';
+import { RootStore } from '../../redux/store';
 import { ToggleCart } from '../../redux/actions/productActions';
 
 import './cart.styles.css';
 
-// REPLACE WITH YOUR OWN CART ITEMS & SOLUTION
-const TEMPORARY_ITEMS = [
-  {
-    id: 1,
-    name: 'Hat',
-    imageSrc:
-      'https://media.istockphoto.com/photos/hat-on-white-background-picture-id526131500?b=1&k=20&m=526131500&s=170667a&w=0&h=TVhckgzmxLZ6b1V74eel7XbFy73tldESzBcH0ZG6g0c=',
-    price: 15,
-    quantity: 1,
-  },
-  {
-    id: 2,
-    name: 'Shirt',
-    imageSrc:
-      'https://media.istockphoto.com/photos/blank-white-tshirt-front-with-clipping-path-picture-id482948743?b=1&k=20&m=482948743&s=170667a&w=0&h=DetzN8rTsgQDTyBDSWvc7gUNz0gae0CUQecM-KNN3WY=',
-    price: 10,
-    quantity: 3,
-  },
-];
-
 const Cart = () => {
+  const isCartOpen = useSelector((state: RootStore) => state.productsList.isCartOpen);
   const dispatch = useDispatch();
   const _toggleCart = () => {
-    // dispatch(ToggleCart())
+    dispatch(ToggleCart(!isCartOpen))
   }
-
-  const totalPrice = TEMPORARY_ITEMS.reduce((total, { price }) => total + price, 0).toFixed(2);
-
+  const cartProducts = useSelector((state: RootStore) => state.productsList.cart);
+  console.log("Here goes nothing: ", cartProducts)
+  // const totalPrice = TEMPORARY_ITEMS.reduce((total, { price }) => total + price, 0).toFixed(2);
+  // console.log("cartProducts is a ",typeof(cartProducts))
   return (
     <div className="cart-modal">
       <div className="cart-container">
@@ -39,12 +23,26 @@ const Cart = () => {
           →
         </button>
         <div className="cart-items-container">
-          {TEMPORARY_ITEMS.map((item) => (
-            <CartItem key={item.id} cartItem={item} />
-          ))}
+          {/* This length check is not saving us from a deleted product listing because it's trying to map over them no matter what.*/}
+          {Object.keys(cartProducts).length > 0 && (
+            Object.keys(cartProducts).map((item, index: number) => (
+              <CartItem 
+                name={cartProducts[item].name}
+                imageSrc={cartProducts[item].image}
+                quantityAvailable={cartProducts[item].quantityAvailable}
+                price={cartProducts[item].price}
+                id={cartProducts[item].id}
+                chosenType={cartProducts[item].chosenType}
+                chosenValue={cartProducts[item].chosenValue}
+                key={index}
+                quantityDesired={cartProducts[item].quantityDesired}
+              />
+            ))
+          )}
+          
         </div>
         <div className="total-container">
-          <span>Total: ${totalPrice}</span>
+          {/* <span>Total: ${totalPrice}</span> */}
         </div>
       </div>
     </div>

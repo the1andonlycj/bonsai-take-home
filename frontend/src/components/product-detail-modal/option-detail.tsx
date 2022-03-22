@@ -14,10 +14,9 @@ interface IPropsDropDown {
 
 function OptionDetail({type, values}: IProps) {
   console.log("SHOWMEVALUES", values)
-  const [selected, setSelected] = useState("")
-  // Returns a list where no values are repeated:
   const filteredValues = values.filter((item, index) => values.indexOf(item) === index);
-
+  const [selected, setSelected] = useState("")
+  
   const setOption = (event: any) => {
     setSelected(event.target.value)
   }

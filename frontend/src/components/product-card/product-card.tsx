@@ -1,6 +1,6 @@
 import { FC, ReactElement } from "react";
 import { IProduct } from "../../redux/constants/product-types";
-import { ToggleModal } from "../../redux/actions/productActions";
+import { ToggleCart, ToggleModal } from "../../redux/actions/productActions";
 import { useDispatch } from "react-redux";
 
 import "./product-card.styles.css";
@@ -13,7 +13,10 @@ const ProductCard: FC<IProductCardProps> = ({ product }): ReactElement => {
   const dispatch = useDispatch();
   const _toggleModal = () => {
     dispatch(ToggleModal(product))
+    // It'd be nice to ensure that the cart is closed when you click on a product, but the functionality doesn't quite work that way right now.
+    // dispatch(ToggleCart(false))
   }
+
   const { name, defaultImage, description } = product;
 
   return (

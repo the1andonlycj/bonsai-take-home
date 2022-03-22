@@ -1,4 +1,4 @@
-import { IProduct, Variant, Option,  } from "./product-types"
+import { IProduct, Option, ICartItem } from "./product-types"
 
 export const GET_PRODUCTS_SUCCESS = "GET_PRODUCTS_SUCCESS";
 export const GET_PRODUCTS_ERROR = "GET_PRODUCTS_ERROR";
@@ -7,6 +7,8 @@ export const REMOVE_SELECTED_PRODUCT = "REMOVE_SELECTED_PRODUCT";
 export const TOGGLE_CART = "TOGGLE_CART";
 export const TOGGLE_MODAL = "TOGGLE_MODAL";
 export const SELECTED_OPTION = "SELECTED_OPTION";
+export const ADD_TO_CART = "ADD_TO_CART";
+export const RESET_CART = "RESET_CART";
 
 
 interface GetProductsSuccess {
@@ -22,13 +24,11 @@ interface GetProductsError {
 
 interface SelectedProduct {
   type: typeof SELECTED_PRODUCT,
-  // This may be simpler:
   payload: IProduct
 }
 
 interface RemoveSelectedProduct {
   type: typeof REMOVE_SELECTED_PRODUCT
-  // This may be simpler:
   payload: IProduct
 }
 
@@ -45,4 +45,14 @@ interface SelectedOption {
   payload: Option
 }
 
-export type ProductDispatchTypes = GetProductsSuccess | GetProductsError | SelectedProduct | RemoveSelectedProduct | ToggleCart | ToggleModal | SelectedOption
+interface AddToCart {
+  type: typeof ADD_TO_CART,
+  payload: ICartItem
+}
+
+interface ResetCart {
+  type: typeof RESET_CART,
+  payload: ICartItem[]
+}
+
+export type ProductDispatchTypes = GetProductsSuccess | GetProductsError | SelectedProduct | RemoveSelectedProduct | ToggleCart | ToggleModal | SelectedOption | AddToCart | ResetCart

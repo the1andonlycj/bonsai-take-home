@@ -6,7 +6,7 @@ const Navigation = () => {
   const dispatch = useDispatch();
   const _toggleCart = () => {
     // This just wants parameters passed in.
-    dispatch(ToggleCart())
+    dispatch(ToggleCart(false))
   }
 
 

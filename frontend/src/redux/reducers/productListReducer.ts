@@ -1,5 +1,5 @@
-import { ProductDispatchTypes, GET_PRODUCTS_SUCCESS, GET_PRODUCTS_ERROR, SELECTED_OPTION, REMOVE_SELECTED_PRODUCT, TOGGLE_CART, TOGGLE_MODAL } from "../constants/action-types";
-import { IProduct, Option } from "../constants/product-types";
+import { ProductDispatchTypes, GET_PRODUCTS_SUCCESS, GET_PRODUCTS_ERROR, SELECTED_OPTION, REMOVE_SELECTED_PRODUCT, TOGGLE_CART, TOGGLE_MODAL, ADD_TO_CART } from "../constants/action-types";
+import { IProduct, Option, ICartItem } from "../constants/product-types";
 
 interface IInitialState {
   products?: IProduct[];
@@ -8,6 +8,7 @@ interface IInitialState {
   isCartOpen: boolean;
   selectedProduct: IProduct;
   selectedOption: Option;
+  cart: ICartItem[];
 }
 
 const initialState: IInitialState = {
@@ -26,7 +27,9 @@ const initialState: IInitialState = {
   selectedOption: {
     value: '', 
     type: ''
-  }
+  },
+  // Why is this initialization of cart not showing up???
+  cart: []
 }
 
 export const productListReducer = (state: IInitialState = initialState, {type, payload} : any) : IInitialState => {
@@ -39,6 +42,8 @@ export const productListReducer = (state: IInitialState = initialState, {type, p
       return {...state, isCartOpen: !state.isCartOpen, }
     case SELECTED_OPTION: 
       return {...state, selectedOption: payload}
+    case ADD_TO_CART: 
+      return {...state, cart: [...state.cart, payload]}
     default:
       return state;
   }

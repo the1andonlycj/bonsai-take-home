@@ -23,18 +23,22 @@ export type Option = {
   value: string;
 }
 
-// export type GroupedOptions = {
-  
-// }
+export type GroupedOptions = {
+  // ESTABLISH A TYPE FOR THIS ONE.
+}
 
 export type SelectableOption = {
   [key: string]: string[]
 }
 
-export type CartItem = {
-  image: string;
+export type ICartItem = {
+  imageSrc: string;
   price: number;
   name: string;
-  chosenOptions: Option[];
-  quantity: number;
+  chosenType: string;
+  chosenValue: string;
+  quantityAvailable: number;
+  id: string;
+  key: number;
+  quantityDesired?: number;
 }
