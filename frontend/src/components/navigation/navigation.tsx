@@ -5,11 +5,9 @@ import "./navigation.styles.css";
 const Navigation = () => {
   const dispatch = useDispatch();
   const _toggleCart = () => {
-    // This just wants parameters passed in.
+    // This is sending in "false"; cart still opens. Refactor function.
     dispatch(ToggleCart(false))
   }
-
-
 
   return (
     <nav className="navigation-bar">

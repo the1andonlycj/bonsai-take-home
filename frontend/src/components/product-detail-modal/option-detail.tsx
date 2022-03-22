@@ -14,14 +14,17 @@ interface IPropsDropDown {
 }
 
 function OptionDetail({type, values}: IProps) {
-  console.log("SHOWMEVALUES", values)
   const filteredValues = values.filter((item, index) => values.indexOf(item) === index);
   const [selected, setSelected] = useState("")
+  const [numberOfOptionDropdowns, setNumberOfOptionDropdowns] = useState(0)
   
+  // This is never triggered.
   const setOption = (event: any) => {
+    console.log("Selected?", selected)
     setSelected(event.target.value)
   }
 
+  
   const Dropdown = ({ label, value, options, onChange }: IPropsDropDown) => {
     return (
       <label className="option-detail">

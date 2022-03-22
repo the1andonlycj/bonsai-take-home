@@ -5,20 +5,28 @@ import { AddToCart, ToggleModal, ToggleCart } from "../../redux/actions/productA
 import { useSelector, useDispatch } from "react-redux";
 import { RootStore } from '../../redux/store';
 
-
 import './product-detail-modal.css';
+
+
+// In order to ensure that options have been selected, we need to know how many options have been presented to the user.
+// Then, we need to know what they've selected for all of those options.
+// Once we know what they've set for all included options, we have to compare their selections to the available variants and ensure that they match.
+// If they match, we show them the add-to-cart button. 
+// If they do not match, we show an apology.
+// All of this processing needs to happen at a higher level than the option itself. The option-detail modal must pass the information up to the store so it can be checked here, so that this page can display the appropriate information. 
+
 
 const ProductDetailModal = () => {
   const dispatch = useDispatch();
   // It feels like PRODUCTSLIST being in the middle of each of these is a HUGE mistake, but I can't see where I've begun this pattern or how to fix it? It's strange.
   const listedOptions = useSelector((state: RootStore) => state.productsList.selectedProduct.groupedOptions);
   const selectedProduct = useSelector((state: RootStore) => state.productsList.selectedProduct);
+
   // WHY ARE YOU WRITING THIS TO PRODUCT LIST?
   const cartProducts = useSelector((state: RootStore) => state.productsList.cart);
 
   const [variantsToggled, setVariantsToggled] = useState(false);
   const [productDiscontinued, setProductDiscontinued] = useState(false);
-
   const isCartOpen = useSelector((state: RootStore) => state.productsList.isCartOpen);
   
   const _toggleModalClosed = () => {
@@ -38,15 +46,12 @@ const ProductDetailModal = () => {
       setProductDiscontinued(false)
       setVariantsToggled(true)
     } else if (selectedProduct.variants[0].quantity > 0) {
-      // Variants are unavailable; user has only one option. 
-      // If stock is available, allow them to add to cart.
-      console.log("WE HAVE IT.")
+      // Variants are unavailable; user has only one option. If stock is available, allow add to cart.
       setProductDiscontinued(false)
 
     } else {
-      // Product is discontinued, variant is out of stock. Variants are unavailable and product is discontinued:
+      // Variants are unavailable and product is discontinued. Show out of stock:
       if(selectedProduct.variants[0].quantity < 1) {
-        console.log("SORRY, CHIEF.")
         setProductDiscontinued(true)
       }
     }
@@ -65,27 +70,25 @@ const ProductDetailModal = () => {
     }
 
     if(cartProducts.length > 0) {
+
       // THIS CHECK IS FAILING WHEN WE GET TO THREE PRODUCTS IN THE CART.
+      
       console.log("THERE'S SOMETIN IN HERE")
       for(let alreadyInCartItem of cartProducts) {
         console.log("ALREADYINTHERE:", alreadyInCartItem)
         if(JSON.stringify(alreadyInCartItem) === JSON.stringify(itemGoingToCart)) {
-          // That would mean that this item is already there in the cart.
-          // Cart opens to show the user that it's already in there and closes the modal:
+          // This item is already in cart:  cart opens to show user and closes detail modal:
           dispatch(ToggleCart(true))
-          // Remove the modal from the screen so user doesn't spam the button when the item is already present in cart:
           _toggleModalClosed()
-
-
         } else {
-          // It's not in the cart, go ahead and add it.
+          // This item is not in the cart, go ahead and add it.
           dispatch(AddToCart(itemGoingToCart))
           dispatch(ToggleCart(true))
           _toggleModalClosed()
         }
       }
     } else {
-      // Cart is empty, add the item to the cart without asking questions:
+      // Cart is empty, add the item to the cart, no questions asked:
       console.log("Cart was empty. Adding product.")
       dispatch(AddToCart(itemGoingToCart))
       dispatch(ToggleCart(true))

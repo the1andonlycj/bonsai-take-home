@@ -67,7 +67,7 @@ const CartItem: FC<ICartItemProps> = ({ name, imageSrc, quantityAvailable, quant
         <span> Quantity: {quantityDesired} </span>
         <span>Total Price: ${(price * quantityDesired).toFixed(2) }</span> 
         <Dropdown id={id} label="Quantity" value={selectedQuantity} options={quantityOptions} onChange={setQuantity} />
-        <button id={id} onClick={removeProduct}>Remove?</button>
+        <button className="remove-button" id={id} onClick={removeProduct}>Remove?</button>
       </div>
     </div>
   );
