@@ -59,42 +59,23 @@ const ProductDetailModal = () => {
   }, [])
 
   const addToCart = () => {
+    const prodVariant = selectedProduct.variants[0]
     const itemGoingToCart = {
-      image: selectedProduct.variants[0]?.image,
-      price: Number(((selectedProduct.variants[0]?.priceCents) / 100 ).toFixed(2)),
+      image: prodVariant?.image,
+      price: Number(((prodVariant?.priceCents) / 100 ).toFixed(2)),
       name: selectedProduct.name,
-      chosenType: selectedProduct.variants[0]?.selectableOptions[0]?.type,
-      chosenValue: selectedProduct.variants[0]?.selectableOptions[0]?.value,
-      quantityAvailable: selectedProduct.variants[0].quantity,
-      id: selectedProduct.variants[0].id,
+      chosenType: prodVariant?.selectableOptions[0]?.type,
+      chosenValue: prodVariant?.selectableOptions[0]?.value,
+      quantityAvailable: prodVariant.quantity,
+      id: prodVariant.id,
       quantityDesired: 1,
     }
-
-    if(cartProducts.length > 0) {
-
-      // THIS CHECK IS FAILING WHEN WE GET TO THREE PRODUCTS IN THE CART.
-      
-      console.log("THERE'S SOMETIN IN HERE")
-      for(let alreadyInCartItem of cartProducts) {
-        console.log("ALREADYINTHERE:", alreadyInCartItem)
-        if(JSON.stringify(alreadyInCartItem) === JSON.stringify(itemGoingToCart)) {
-          // This item is already in cart:  cart opens to show user and closes detail modal:
-          dispatch(ToggleCart(true))
-          _toggleModalClosed()
-        } else {
-          // This item is not in the cart, go ahead and add it.
-          dispatch(AddToCart(itemGoingToCart))
-          dispatch(ToggleCart(true))
-          _toggleModalClosed()
-        }
-      }
-    } else {
-      // Cart is empty, add the item to the cart, no questions asked:
-      console.log("Cart was empty. Adding product.")
+    
+    if (!cartProducts.includes(itemGoingToCart)) {
       dispatch(AddToCart(itemGoingToCart))
-      dispatch(ToggleCart(true))
-      _toggleModalClosed()
     }
+    dispatch(ToggleCart(true))
+    _toggleModalClosed()
   }
 
   return (

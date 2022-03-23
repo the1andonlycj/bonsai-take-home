@@ -11,22 +11,22 @@ const initialState: IInitialState = {
   cart: []
 }
 
-export const cartReducer = (state: IInitialState = initialState, {type, payload} : any) : IInitialState => {
+export const cartReducer = (state: IInitialState = initialState, { type, payload }: any): IInitialState => {
   switch (type) {
     case TOGGLE_CART:
-      return {...state, isCartOpen: !state.isCartOpen }
-    case ADD_TO_CART: 
-      return {...state, cart: [...state.cart, payload]}
+      return { ...state, isCartOpen: !state.isCartOpen }
+    case ADD_TO_CART:
+      return { ...state, cart: [...state.cart, payload] }
     case REMOVE_ITEM: {
       const updatedCart = [...state.cart]
-      updatedCart.splice(state.cart.findIndex(item => item.id === payload) , 1)
-      return {...state, cart: updatedCart}
+      updatedCart.splice(state.cart.findIndex(item => item.id === payload), 1)
+      return { ...state, cart: updatedCart }
     }
     case UPDATE_CART: {
       const itemIndex = state.cart.findIndex(item => item.id === payload.id)
       const updatedCart = [...state.cart]
       updatedCart[itemIndex].quantityDesired = Number(payload.quantity)
-      return {...state, cart: updatedCart}
+      return { ...state, cart: updatedCart }
     }
     default:
       return state;
