@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { ICartItem } from '../../redux/constants/product-types';
 import CartItem from '../cart-item/cart-item';
 import { RootStore } from '../../redux/store';
 import { ToggleCart } from '../../redux/actions/cartActions';
@@ -20,7 +19,6 @@ const Cart = () => {
           →
         </button>
         <div className="cart-items-container">
-          {/* This length check is not saving us from a deleted product listing because it's trying to map over them no matter what.*/}
           {Object.keys(cartProducts).length > 0 && (
             Object.keys(cartProducts).map((item, index: number) => (
               <CartItem 

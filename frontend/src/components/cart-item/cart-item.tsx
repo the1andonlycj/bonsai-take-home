@@ -1,11 +1,8 @@
 import { FC, ReactElement, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { UpdateCart, RemoveItemFromCart } from '../../redux/actions/cartActions';
+
 import './cart-item.styles.css';
-
-// Cart needs all of this information, but it also needs to display the options that were chosen. 
-// Cart must be sent: name, image, quantity, price, selectedOptions.
-
 
 interface ICartItemProps {
   name: string,
@@ -58,7 +55,6 @@ const CartItem: FC<ICartItemProps> = ({ name, imageSrc, quantityAvailable, quant
       <div className="cart-item-details">
         <span>{name} </span>
         <span> Unit Price: ${price?.toFixed(2)} </span>
-        {/* Quantity is going to become a dropdown where the person can select as many of the product as there are available, essentially a map through the numbers 1- {quantityAvailable}. */}
         <span> Quantity: {quantityDesired} </span>
         <span>Total Price: ${(price * Number(quantityDesired))?.toFixed(2) }</span> 
         <Dropdown id={id} label="Quantity" value={selectedQuantity} options={quantityOptions} onChange={setQuantity} />

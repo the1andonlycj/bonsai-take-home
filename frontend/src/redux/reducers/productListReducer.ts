@@ -1,12 +1,13 @@
-import { DispatchTypes, GET_PRODUCTS_SUCCESS, GET_PRODUCTS_ERROR, SELECTED_OPTION, REMOVE_SELECTED_PRODUCT, TOGGLE_CART, TOGGLE_MODAL, ADD_TO_CART } from "../constants/action-types";
-import { IProduct, Option, ICartItem } from "../constants/product-types";
+
+import { GET_PRODUCTS_SUCCESS, SELECTED_OPTIONS, TOGGLE_MODAL } from "../constants/action-types";
+import { IProduct } from "../constants/product-types";
 
 interface IInitialState {
   products?: IProduct[];
   isLoading: boolean;
   isModalOpen: boolean;
   selectedProduct: IProduct;
-  selectedOption: Option;
+  selectedOptions: any;
 }
 
 const initialState: IInitialState = {
@@ -21,10 +22,7 @@ const initialState: IInitialState = {
     variants: [],
     isDiscontinued: false
   },
-  selectedOption: {
-    value: '', 
-    type: ''
-  },
+  selectedOptions: {},
 }
 
 export const productListReducer = (state: IInitialState = initialState, {type, payload} : any) : IInitialState => {
@@ -32,9 +30,11 @@ export const productListReducer = (state: IInitialState = initialState, {type, p
     case GET_PRODUCTS_SUCCESS:
       return {...state, products: payload, isLoading: false}; 
     case TOGGLE_MODAL:
-      return {...state, isModalOpen: !state.isModalOpen, selectedProduct: payload}
-    case SELECTED_OPTION: 
-      return {...state, selectedOption: payload}
+      return {...state, isModalOpen: !state.isModalOpen, selectedProduct: payload, selectedOptions: {}}
+    case SELECTED_OPTIONS: 
+    const updatedSelectedOptions = {...state.selectedOptions}
+    updatedSelectedOptions[payload.type] = payload.value
+      return {...state, selectedOptions: updatedSelectedOptions}
     default:
       return state;
   }

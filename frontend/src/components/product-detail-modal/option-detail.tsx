@@ -1,27 +1,30 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { SelectedOptions } from "../../redux/actions/productActions";
+
 import './option-detail.css';
 
 interface IProps {
   type: string,
   values: string[],
-}
+};
 
 interface IPropsDropDown {
   label: string,
   value: string,
   options: string[],
   onChange: (a: any) => void
-}
+};
 
 function OptionDetail({type, values}: IProps) {
+  const dispatch = useDispatch();
   const filteredValues = values.filter((item, index) => values.indexOf(item) === index);
-  const [selected, setSelected] = useState("")
-  const [numberOfOptionDropdowns, setNumberOfOptionDropdowns] = useState(0)
+  const [selected, setSelected] = useState("");
   
-  // This is never triggered.
   const setOption = (event: any) => {
-    console.log("Selected?", selected)
-    setSelected(event.target.value)
+    const value = event.target.value;
+    setSelected(value);
+    dispatch(SelectedOptions({type, value}));
   }
 
   
@@ -39,10 +42,8 @@ function OptionDetail({type, values}: IProps) {
   };
 
   return (
-    <>
-      <Dropdown label={type} value={selected} options={filteredValues} onChange={setOption} />
-    </>
+    <Dropdown label={type} value={selected} options={filteredValues} onChange={setOption} />
   )
 }
 
-export default OptionDetail
+export default OptionDetail;

@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import ProductCard from "../../components/product-card/product-card";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GetProducts } from "../../redux/actions/productActions";
+import ProductCard from "../../components/product-card/product-card";
 import ProductDetailModal from "../product-detail-modal/product-detail-modal";
 import Cart from "../cart/cart";
+import { GetProducts } from "../../redux/actions/productActions";
 import { RootStore } from "../../redux/store";
+import { IProduct } from "../../redux/constants/product-types";
 
 import "./storefront.styles.css";
-import { IProduct } from "../../redux/constants/product-types";
 
 
 const Storefront = () => {
@@ -19,7 +19,7 @@ const Storefront = () => {
   
   useEffect(() => {
     dispatch(GetProducts());
-  },[])
+  },[]);
   
   return (
     <div>
@@ -27,7 +27,7 @@ const Storefront = () => {
       {isModalOpen && <ProductDetailModal />}
       
       <div className="products-listing">
-        {isLoading === false && (
+        {!isLoading && (
           products?.map((productItem: IProduct) => (
           <ProductCard key={productItem.id} product={productItem} />
         )))}

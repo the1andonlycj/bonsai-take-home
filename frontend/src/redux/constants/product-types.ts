@@ -4,8 +4,7 @@ export type IProduct = {
   description: string;
   defaultImage: string;
   variants: Variant[];  
-  // Fix?
-  groupedOptions?: GroupedOptions;
+  groupedOptions?:string[];
   isDiscontinued: boolean;
 }
 
@@ -23,22 +22,6 @@ export type Option = {
   value: string;
 }
 
-export type GroupedOptions = {
-  // ESTABLISH A TYPE FOR THIS ONE.
-}
-
 export type SelectableOption = {
   [key: string]: string[]
-}
-
-export type ICartItem = {
-  imageSrc: string;
-  price: number;
-  name: string;
-  chosenType: string;
-  chosenValue: string;
-  quantityAvailable: number;
-  id: string;
-  key: number;
-  quantityDesired?: number;
 }

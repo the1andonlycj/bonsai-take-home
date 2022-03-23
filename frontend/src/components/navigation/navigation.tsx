@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
 import { ToggleCart } from "../../redux/actions/cartActions";
+
 import "./navigation.styles.css";
 
 const Navigation = () => {
   const dispatch = useDispatch();
   const _toggleCart = () => {
-    // This is sending in "false"; cart still opens. Refactor function.
-    dispatch(ToggleCart(false))
+    dispatch(ToggleCart(false));
   }
 
   return (

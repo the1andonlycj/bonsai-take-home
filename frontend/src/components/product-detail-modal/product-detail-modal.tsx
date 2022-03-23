@@ -1,34 +1,24 @@
 import { useState, useEffect } from 'react';
 import OptionDetail from './option-detail';
-import { Variant } from "../../redux/constants/product-types";
+import { ICartItem } from '../../redux/constants/cart-types';
 import { ToggleModal } from "../../redux/actions/productActions";
 import { useSelector, useDispatch } from "react-redux";
 import { RootStore } from '../../redux/store';
-
-import './product-detail-modal.css';
 import { AddToCart, ToggleCart } from '../../redux/actions/cartActions';
 
+import './product-detail-modal.css';
 
-// In order to ensure that options have been selected, we need to know how many options have been presented to the user.
-// Then, we need to know what they've selected for all of those options.
-// Once we know what they've set for all included options, we have to compare their selections to the available variants and ensure that they match.
-// If they match, we show them the add-to-cart button and allow them to add to cart.
-// If they do not match, we show an apology.
-// All of this processing needs to happen at a higher level than the option itself. The option-detail modal must pass the information up to the store so it can be checked here, so that this page can display the appropriate information. 
-
-
+ 
 const ProductDetailModal = () => {
   const dispatch = useDispatch();
-  // It feels like PRODUCTSLIST being in the middle of each of these is a HUGE mistake, but I can't see where I've begun this pattern or how to fix it? It's strange.
   const listedOptions = useSelector((state: RootStore) => state.productsList.selectedProduct.groupedOptions);
   const selectedProduct = useSelector((state: RootStore) => state.productsList.selectedProduct);
+  const selectedOptions = useSelector((state: RootStore) => state.productsList.selectedOptions);
 
-  // WHY ARE YOU WRITING THIS TO PRODUCT LIST?
   const cartProducts = useSelector((state: RootStore) => state.cart.cart);
 
   const [variantsToggled, setVariantsToggled] = useState(false);
   const [productDiscontinued, setProductDiscontinued] = useState(false);
-  const isCartOpen = useSelector((state: RootStore) => state.cart.isCartOpen);
   
   const _toggleModalClosed = () => {
     dispatch(ToggleModal({
@@ -38,29 +28,51 @@ const ProductDetailModal = () => {
       defaultImage: '',
       variants: [],
       isDiscontinued: false,
-    }))
-  }
+    }));
+  };
 
   useEffect(() => {
     if(selectedProduct.variants.length > 1) {
       // Variants are available; user must choose options:
-      setProductDiscontinued(false)
-      setVariantsToggled(true)
+      setProductDiscontinued(false);
+      setVariantsToggled(true);
     } else if (selectedProduct.variants[0]?.quantity > 0) {
       // Variants are unavailable; user has only one option. If stock is available, allow add to cart.
-      setProductDiscontinued(false)
+      setProductDiscontinued(false);
 
     } else {
       // Variants are unavailable and product is discontinued. Show out of stock:
       if(selectedProduct.variants[0]?.quantity < 1) {
-        setProductDiscontinued(true)
+        setProductDiscontinued(true);
       }
     }
-  }, [])
+  }, []);
+
+  // useEffect(() => {
+  //   selectedProduct.variants.forEach(variant => {
+  //     debugger;
+  //     let match = false;
+  //     variant.selectableOptions.forEach(option => {
+  //       if (selectedOptions[option.type] === option.value) {
+  //         match = true;
+  //       } else {
+  //         match = false
+  //       }
+  //     }) 
+
+  //     if(match) {
+  //       setProductDiscontinued(false);
+  //     }
+        
+  //     })
+  // }, [selectedOptions]);
+
 
   const addToCart = () => {
-    const prodVariant = selectedProduct.variants[0]
-    const itemGoingToCart = {
+    const prodVariant = selectedProduct.variants[0] || []
+
+    const newItem: ICartItem = {
+      key: prodVariant.id,
       image: prodVariant?.image,
       price: Number(((prodVariant?.priceCents) / 100 ).toFixed(2)),
       name: selectedProduct.name,
@@ -71,11 +83,11 @@ const ProductDetailModal = () => {
       quantityDesired: 1,
     }
     
-    if (!cartProducts.includes(itemGoingToCart)) {
-      dispatch(AddToCart(itemGoingToCart))
+    if (!cartProducts.includes(newItem)) {
+      dispatch(AddToCart(newItem));
     }
     dispatch(ToggleCart(true))
-    _toggleModalClosed()
+    _toggleModalClosed();
   }
 
   return (
@@ -119,7 +131,6 @@ const ProductDetailModal = () => {
             ) 
             : (
               <div>
-                {/* I don't think there's an instance wherein this code will naturally run. */}
                 <h1>Unfortunately, we're fresh out of stock on this one.</h1>
                 <img src={selectedProduct.variants[0]?.image}></img>
                 <p>
