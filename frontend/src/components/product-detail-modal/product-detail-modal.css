@@ -1,0 +1,66 @@
+.product-detail-modal {
+  height: 35em;
+  width: 50em;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: row;
+  box-shadow: 13px 13px 15px 5px rgba(236,110,17,0.8);
+  z-index: 100;
+}
+
+.modal-column-left {
+  background-color: whitesmoke;
+  height: 100%;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  padding-left: 1.5em;
+}
+
+.modal-column-right {
+  height: 100%;
+  width: 70%;
+  background-color: white;
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* Experimental: */
+  transition: all 1s ease-out;
+}
+
+.modal-column-right button{
+  align-self: flex-end;
+  width: 6em;
+  height: 2em;
+  border-radius: 5px;
+  background-color: #DCDCDC;
+}
+
+.modal-variant-image {
+  height: 150px;
+}
+
+.modal-options-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.modal-selections-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.options-container {
+  display: flex;
+  flex: row;
+  justify-content: space-around;
+  align-items: baseline;
+}

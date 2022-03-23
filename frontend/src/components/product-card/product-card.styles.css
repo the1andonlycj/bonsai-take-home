@@ -3,8 +3,9 @@
   flex-direction: column;
   border-radius: 10px;
   margin: 10px;
+  /* This width property is useless? */
   width: 200px;
-  height: 350px;
+  height: 500px;
   padding: 15px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   cursor: pointer;
@@ -27,4 +28,20 @@
   font-weight: bold;
   font-size: 20px;
   margin-bottom: 10px;
+}
+
+/* Relocate once component is abstracted to its own files: */
+.product-options-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  
+}
+
+.product-options-button {
+  margin-top: 2em;
+  width: 4em;
+  height: 2em;
+  border-radius: 5px;
+  background-color: silver;
 }

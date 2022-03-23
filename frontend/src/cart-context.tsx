@@ -1,18 +1,19 @@
 import { createContext, useState, FC } from "react";
 
 interface ICartContext {
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
+  isCartOpen: boolean;
+  setIsCartOpen: (isCartOpen: boolean) => void;
 }
 
+// Why does setIsOpen show null here but void above? Just inconsistent?
 export const CartContext = createContext<ICartContext>({
-  isOpen: false,
-  setIsOpen: () => null,
+  isCartOpen: false,
+  setIsCartOpen: () => null,
 });
 
 export const CartProvider: FC = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const value = { isOpen, setIsOpen };
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const value = { isCartOpen, setIsCartOpen };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
