@@ -7,12 +7,12 @@ import { ToggleCart } from '../../redux/actions/cartActions';
 import './cart.styles.css';
 
 const Cart = () => {
-  const isCartOpen = useSelector((state: RootStore) => state.productsList.isCartOpen);
+  const isCartOpen = useSelector((state: RootStore) => state.cart.isCartOpen);
   const dispatch = useDispatch();
   const _toggleCart = () => {
     dispatch(ToggleCart(!isCartOpen))
   }
-  const cartProducts = useSelector((state: RootStore) => state.productsList.cart);
+  const cartProducts = useSelector((state: RootStore) => state.cart.cart);
   console.log("Here goes nothing: ", cartProducts)
   // const totalPrice = TEMPORARY_ITEMS.reduce((total, { price }) => total + price, 0).toFixed(2);
   // console.log("cartProducts is a ",typeof(cartProducts))

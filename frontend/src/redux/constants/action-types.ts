@@ -9,6 +9,7 @@ export const TOGGLE_MODAL = "TOGGLE_MODAL";
 export const SELECTED_OPTION = "SELECTED_OPTION";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const UPDATE_CART = "UPDATE_CART";
+export const REMOVE_ITEM = "REMOVE_ITEM"
 
 
 interface GetProductsSuccess {
@@ -52,7 +53,11 @@ interface AddToCart {
 
 interface UpdateCart {
   type: typeof UPDATE_CART,
-  payload: ICartItem[]
+  payload: object
 }
 
-export type DispatchTypes = GetProductsSuccess | GetProductsError | SelectedProduct | RemoveSelectedProduct | ToggleCart | ToggleModal | SelectedOption | AddToCart | UpdateCart
+interface RemoveItem {
+  type: typeof REMOVE_ITEM,
+  payload: string
+}
+export type DispatchTypes = GetProductsSuccess | GetProductsError | SelectedProduct | RemoveSelectedProduct | ToggleCart | ToggleModal | SelectedOption | AddToCart | UpdateCart | RemoveItem

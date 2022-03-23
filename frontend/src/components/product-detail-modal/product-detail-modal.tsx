@@ -24,11 +24,11 @@ const ProductDetailModal = () => {
   const selectedProduct = useSelector((state: RootStore) => state.productsList.selectedProduct);
 
   // WHY ARE YOU WRITING THIS TO PRODUCT LIST?
-  const cartProducts = useSelector((state: RootStore) => state.productsList.cart);
+  const cartProducts = useSelector((state: RootStore) => state.cart.cart);
 
   const [variantsToggled, setVariantsToggled] = useState(false);
   const [productDiscontinued, setProductDiscontinued] = useState(false);
-  const isCartOpen = useSelector((state: RootStore) => state.productsList.isCartOpen);
+  const isCartOpen = useSelector((state: RootStore) => state.cart.isCartOpen);
   
   const _toggleModalClosed = () => {
     dispatch(ToggleModal({
@@ -46,13 +46,13 @@ const ProductDetailModal = () => {
       // Variants are available; user must choose options:
       setProductDiscontinued(false)
       setVariantsToggled(true)
-    } else if (selectedProduct.variants[0].quantity > 0) {
+    } else if (selectedProduct.variants[0]?.quantity > 0) {
       // Variants are unavailable; user has only one option. If stock is available, allow add to cart.
       setProductDiscontinued(false)
 
     } else {
       // Variants are unavailable and product is discontinued. Show out of stock:
-      if(selectedProduct.variants[0].quantity < 1) {
+      if(selectedProduct.variants[0]?.quantity < 1) {
         setProductDiscontinued(true)
       }
     }
@@ -60,11 +60,11 @@ const ProductDetailModal = () => {
 
   const addToCart = () => {
     const itemGoingToCart = {
-      image: selectedProduct.variants[0].image,
-      price: Number(((selectedProduct.variants[0].priceCents) / 100 ).toFixed(2)),
+      image: selectedProduct.variants[0]?.image,
+      price: Number(((selectedProduct.variants[0]?.priceCents) / 100 ).toFixed(2)),
       name: selectedProduct.name,
-      chosenType: selectedProduct.variants[0].selectableOptions[0].type,
-      chosenValue: selectedProduct.variants[0].selectableOptions[0].value,
+      chosenType: selectedProduct.variants[0]?.selectableOptions[0]?.type,
+      chosenValue: selectedProduct.variants[0]?.selectableOptions[0]?.value,
       quantityAvailable: selectedProduct.variants[0].quantity,
       id: selectedProduct.variants[0].id,
       quantityDesired: 1,
@@ -130,8 +130,8 @@ const ProductDetailModal = () => {
                 <h1>Who needs options? This one is perfect as is:</h1>
                 <img src={selectedProduct.variants[0]?.image}></img>
                 <p>
-                  Available with {selectedProduct.variants[0].selectableOptions[0].value.toLowerCase()} {selectedProduct.variants[0].selectableOptions[0].type.toLowerCase()}. 
-                  Only ${((selectedProduct.variants[0].priceCents) / 100 ).toFixed(2)}, but you should act quickly: we only have {selectedProduct.variants[0].quantity} left. 
+                  Available with {selectedProduct.variants[0]?.selectableOptions[0]?.value.toLowerCase()} {selectedProduct.variants[0]?.selectableOptions[0]?.type.toLowerCase()}. 
+                  Only ${((selectedProduct.variants[0]?.priceCents) / 100 ).toFixed(2)}, but you should act quickly: we only have {selectedProduct.variants[0]?.quantity} left. 
                 </p>
                 <button onClick={addToCart}>Add to Cart</button>
               </div>
@@ -140,9 +140,9 @@ const ProductDetailModal = () => {
               <div>
                 {/* I don't think there's an instance wherein this code will naturally run. */}
                 <h1>Unfortunately, we're fresh out of stock on this one.</h1>
-                <img src={selectedProduct.variants[0].image}></img>
+                <img src={selectedProduct.variants[0]?.image}></img>
                 <p>
-                  With enough interest, it may be available again. The standard version comes with {selectedProduct.variants[0].selectableOptions[0].value.toLowerCase()} {selectedProduct.variants[0].selectableOptions[0].type.toLowerCase()} for only ${((selectedProduct.variants[0].priceCents) / 100 ).toFixed(2)}. 
+                  With enough interest, it may be available again. The standard version comes with {selectedProduct.variants[0]?.selectableOptions[0]?.value.toLowerCase()} {selectedProduct.variants[0]?.selectableOptions[0]?.type.toLowerCase()} for only ${((selectedProduct.variants[0]?.priceCents) / 100 ).toFixed(2)}. 
                 </p>
                 <button onClick={()=>{alert('This feature needs to be linked to the database!')}} >Let us know if you'd like to be notified when it comes back in stock.</button>
               </div>

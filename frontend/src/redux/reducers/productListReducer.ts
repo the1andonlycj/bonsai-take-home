@@ -5,17 +5,14 @@ interface IInitialState {
   products?: IProduct[];
   isLoading: boolean;
   isModalOpen: boolean;
-  isCartOpen: boolean;
   selectedProduct: IProduct;
   selectedOption: Option;
-  cart: ICartItem[];
 }
 
 const initialState: IInitialState = {
   products: [],
   isLoading: true,
   isModalOpen: false,
-  isCartOpen: false,
   selectedProduct: {
     name: '', 
     id: '', 
@@ -28,8 +25,6 @@ const initialState: IInitialState = {
     value: '', 
     type: ''
   },
-  // Why is this initialization of cart not showing up???
-  cart: []
 }
 
 export const productListReducer = (state: IInitialState = initialState, {type, payload} : any) : IInitialState => {
@@ -38,12 +33,8 @@ export const productListReducer = (state: IInitialState = initialState, {type, p
       return {...state, products: payload, isLoading: false}; 
     case TOGGLE_MODAL:
       return {...state, isModalOpen: !state.isModalOpen, selectedProduct: payload}
-    case TOGGLE_CART:
-      return {...state, isCartOpen: !state.isCartOpen, }
     case SELECTED_OPTION: 
       return {...state, selectedOption: payload}
-    case ADD_TO_CART: 
-      return {...state, cart: [...state.cart, payload]}
     default:
       return state;
   }

@@ -11,7 +11,7 @@ export const GetProducts = () => async (dispatch: Dispatch<DispatchTypes>) => {
   }).then((res) => {
     for(const prod of res.products) {
       const allOptions = prod.variants.map((variant: Variant) => {
-        return variant.selectableOptions
+        return variant?.selectableOptions
       })
       const flattenedOptions = allOptions.reduce((accumulator: string[], value:string) => accumulator.concat(value), []);
 

@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { DispatchTypes, TOGGLE_CART, ADD_TO_CART, UPDATE_CART } from "../constants/action-types";
+import { DispatchTypes, TOGGLE_CART, ADD_TO_CART, UPDATE_CART, REMOVE_ITEM } from "../constants/action-types";
 import { ICartItem } from "../constants/cart-types";
 
 export const ToggleCart = (payload: boolean) => (dispatch: Dispatch<DispatchTypes>) => {
@@ -17,10 +17,18 @@ export const AddToCart = (product: ICartItem) => (dispatch: Dispatch<DispatchTyp
   });
 }
 
-export const UpdateCart = (cartItems: ICartItem[]) => (dispatch: Dispatch<DispatchTypes>) => {
-  console.log("PRODUCTS GOING BACK INTO CART AFTER REMOVAL:", cartItems)
+export const RemoveItemFromCart = (id: string) => (dispatch: Dispatch<DispatchTypes>) => {
+  console.log("PRODUCTS GOING BACK INTO CART AFTER REMOVAL:", id)
+  dispatch({
+    type: REMOVE_ITEM,
+    payload: id
+  });
+}
+
+export const UpdateCart = (payload: object) => (dispatch: Dispatch<DispatchTypes>) => {
+  console.log("PRODUCTS GOING BACK INTO CART AFTER REMOVAL:", payload)
   dispatch({
     type: UPDATE_CART,
-    payload: cartItems
+    payload: payload
   });
 }
