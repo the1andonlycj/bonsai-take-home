@@ -17,6 +17,7 @@ const Storefront = () => {
   const isModalOpen = useSelector((state: RootStore) => state.productsList.isModalOpen);
   const isCartOpen = useSelector((state: RootStore) => state.cart.isCartOpen);
   
+  // Get the products (and organize them some):
   useEffect(() => {
     dispatch(GetProducts());
   },[]);

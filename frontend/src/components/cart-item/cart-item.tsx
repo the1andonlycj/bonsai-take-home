@@ -11,6 +11,8 @@ interface ICartItemProps {
   quantityDesired: string,
   price: number,
   id: string,
+  chosenType: string,
+  chosenValue: string,
 }
 
 interface IPropsDropDown {
@@ -21,7 +23,7 @@ interface IPropsDropDown {
   onChange: (a: any) => void
 }
 
-const CartItem: FC<ICartItemProps> = ({ name, imageSrc, quantityAvailable, quantityDesired, price, id}): ReactElement => {
+const CartItem: FC<ICartItemProps> = ({ name, imageSrc, quantityAvailable, quantityDesired, price, id, chosenType, chosenValue}): ReactElement => {
   const [selectedQuantity, setSelectedQuantity] = useState(quantityDesired)
   const dispatch = useDispatch();
   const removeProduct = (e: React.MouseEvent<HTMLElement>) => {
@@ -56,6 +58,7 @@ const CartItem: FC<ICartItemProps> = ({ name, imageSrc, quantityAvailable, quant
         <span>{name} </span>
         <span> Unit Price: ${price?.toFixed(2)} </span>
         <span> Quantity: {quantityDesired} </span>
+        <span> {chosenType}: {chosenValue} </span>
         <span>Total Price: ${(price * Number(quantityDesired))?.toFixed(2) }</span> 
         <Dropdown id={id} label="Quantity" value={selectedQuantity} options={quantityOptions} onChange={setQuantity} />
         <button className="remove-button" id={id} onClick={removeProduct}>Remove?</button>

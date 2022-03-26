@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import OptionDetail from './option-detail';
 import { ICartItem } from '../../redux/constants/cart-types';
-import { ToggleModal } from "../../redux/actions/productActions";
+import { ToggleModal, SetSelectedVariant } from "../../redux/actions/productActions";
 import { useSelector, useDispatch } from "react-redux";
 import { RootStore } from '../../redux/store';
 import { AddToCart, ToggleCart } from '../../redux/actions/cartActions';
@@ -14,6 +14,7 @@ const ProductDetailModal = () => {
   const listedOptions = useSelector((state: RootStore) => state.productsList.selectedProduct.groupedOptions);
   const selectedProduct = useSelector((state: RootStore) => state.productsList.selectedProduct);
   const selectedOptions = useSelector((state: RootStore) => state.productsList.selectedOptions);
+  const selectedVariantId = useSelector((state: RootStore) => state.productsList.selectedVariantId);
 
   const cartProducts = useSelector((state: RootStore) => state.cart.cart);
 
@@ -39,7 +40,6 @@ const ProductDetailModal = () => {
     } else if (selectedProduct.variants[0]?.quantity > 0) {
       // Variants are unavailable; user has only one option. If stock is available, allow add to cart.
       setProductDiscontinued(false);
-
     } else {
       // Variants are unavailable and product is discontinued. Show out of stock:
       if(selectedProduct.variants[0]?.quantity < 1) {
@@ -48,40 +48,65 @@ const ProductDetailModal = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   selectedProduct.variants.forEach(variant => {
-  //     debugger;
-  //     let match = false;
-  //     variant.selectableOptions.forEach(option => {
-  //       if (selectedOptions[option.type] === option.value) {
-  //         match = true;
-  //       } else {
-  //         match = false
-  //       }
-  //     }) 
+  useEffect(() => {
+    // Options have changed; reset value for variantId to empty string:
+    dispatch(SetSelectedVariant(''))
+    // Establish empty object for variant option sets:
+    selectedProduct.variants.forEach(variant => {
+      const checkableOptions = {}
+      // Creating a more easily checkable set of options:
+      variant.selectableOptions.forEach(option => {
+        checkableOptions[option.type] = option.value
+      })
+      if (JSON.stringify(checkableOptions) === JSON.stringify(selectedOptions) && !variant.isDiscontinued && variant.quantity > 0) {
+        // Positive match:
+        dispatch(SetSelectedVariant(variant.id))
+      }
 
-  //     if(match) {
-  //       setProductDiscontinued(false);
-  //     }
-        
-  //     })
-  // }, [selectedOptions]);
+    })
+  }, [selectedOptions]);
 
 
   const addToCart = () => {
-    const prodVariant = selectedProduct.variants[0] || []
+    // Establish empty prodVariant:
+    let prodVariant:ICartItem = {
+      image: '',
+      price: 0,
+      name: '',
+      chosenType: '',
+      chosenValue: '',
+      quantityAvailable: 0,
+      id: '',
+      key: ''
+    };
+
+    if(selectedVariantId) {
+      selectedProduct.variants.forEach((variant, index) => {
+        if(variant.id === selectedVariantId) {
+          console.log("FOUND IT", index)
+          prodVariant = selectedProduct.variants[index]
+        }
+      }
+      )} else {
+        prodVariant = selectedProduct.variants[0]
+    }
+
+
 
     const newItem: ICartItem = {
       key: prodVariant.id,
       image: prodVariant?.image,
       price: Number(((prodVariant?.priceCents) / 100 ).toFixed(2)),
       name: selectedProduct.name,
+      // WE NEED SUPPORT FOR MULTIPLE TYPES!!!!
       chosenType: prodVariant?.selectableOptions[0]?.type,
       chosenValue: prodVariant?.selectableOptions[0]?.value,
       quantityAvailable: prodVariant.quantity,
       id: prodVariant.id,
       quantityDesired: 1,
     }
+
+    console.log("NEWITEMBB", newItem)
     
     if (!cartProducts.includes(newItem)) {
       dispatch(AddToCart(newItem));
@@ -116,6 +141,7 @@ const ProductDetailModal = () => {
                     />
                   ))     
                 }
+                {selectedVariantId && <button onClick={addToCart}>Add to Cart</button>}
               </div>
             </div>) 
             : (!productDiscontinued ) ? (

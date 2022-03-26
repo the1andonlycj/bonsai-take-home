@@ -1,0 +1,1 @@
+// Insert code here for making a selected-product type for state

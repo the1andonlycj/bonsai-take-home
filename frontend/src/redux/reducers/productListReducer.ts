@@ -1,5 +1,5 @@
 
-import { GET_PRODUCTS_SUCCESS, SELECTED_OPTIONS, TOGGLE_MODAL } from "../constants/action-types";
+import { GET_PRODUCTS_SUCCESS, SELECTED_OPTIONS, TOGGLE_MODAL, SET_SELECTED_VARIANT } from "../constants/action-types";
 import { IProduct } from "../constants/product-types";
 
 interface IInitialState {
@@ -8,6 +8,7 @@ interface IInitialState {
   isModalOpen: boolean;
   selectedProduct: IProduct;
   selectedOptions: any;
+  selectedVariantId: string;
 }
 
 const initialState: IInitialState = {
@@ -23,6 +24,7 @@ const initialState: IInitialState = {
     isDiscontinued: false
   },
   selectedOptions: {},
+  selectedVariantId: ""
 }
 
 export const productListReducer = (state: IInitialState = initialState, {type, payload} : any) : IInitialState => {
@@ -32,9 +34,11 @@ export const productListReducer = (state: IInitialState = initialState, {type, p
     case TOGGLE_MODAL:
       return {...state, isModalOpen: !state.isModalOpen, selectedProduct: payload, selectedOptions: {}}
     case SELECTED_OPTIONS: 
-    const updatedSelectedOptions = {...state.selectedOptions}
-    updatedSelectedOptions[payload.type] = payload.value
+      const updatedSelectedOptions = {...state.selectedOptions}
+      updatedSelectedOptions[payload.type] = payload.value
       return {...state, selectedOptions: updatedSelectedOptions}
+    case SET_SELECTED_VARIANT:
+      return {...state, selectedVariantId: payload}
     default:
       return state;
   }

@@ -10,7 +10,9 @@ export const TOGGLE_MODAL = "TOGGLE_MODAL";
 export const SELECTED_OPTIONS = "SELECTED_OPTIONS";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const UPDATE_CART = "UPDATE_CART";
-export const REMOVE_ITEM = "REMOVE_ITEM"
+export const REMOVE_ITEM = "REMOVE_ITEM";
+export const SET_SELECTED_VARIANT = "SET_SELECTED_VARIANT";
+
 
 
 interface GetProductsSuccess {
@@ -59,4 +61,9 @@ interface RemoveItem {
   type: typeof REMOVE_ITEM,
   payload: string
 }
-export type DispatchTypes = GetProductsSuccess | GetProductsError | SelectedProduct | RemoveSelectedProduct | ToggleCart | ToggleModal | SelectedOptions | AddToCart | UpdateCart | RemoveItem
+
+interface SetSelectedVariant {
+  type: typeof SET_SELECTED_VARIANT,
+  payload: string
+}
+export type DispatchTypes = GetProductsSuccess | GetProductsError | SelectedProduct | RemoveSelectedProduct | ToggleCart | ToggleModal | SelectedOptions | AddToCart | UpdateCart | RemoveItem | SetSelectedVariant

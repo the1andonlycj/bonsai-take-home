@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { DispatchTypes, GET_PRODUCTS_SUCCESS, GET_PRODUCTS_ERROR, TOGGLE_MODAL, SELECTED_OPTIONS } from "../constants/action-types";
+import { DispatchTypes, GET_PRODUCTS_SUCCESS, GET_PRODUCTS_ERROR, TOGGLE_MODAL, SELECTED_OPTIONS, SET_SELECTED_VARIANT } from "../constants/action-types";
 import { IProduct, Option, Variant } from "../constants/product-types";
 
 export const GetProducts = () => async (dispatch: Dispatch<DispatchTypes>) => {
@@ -53,3 +53,12 @@ export const SelectedOptions = (option: Option) => (dispatch: Dispatch<DispatchT
     payload: option
   });
 }
+
+export const SetSelectedVariant = (id: string) => (dispatch: Dispatch<DispatchTypes>) => {
+  dispatch({
+    type: SET_SELECTED_VARIANT,
+    payload: id
+  });
+}
+
+
