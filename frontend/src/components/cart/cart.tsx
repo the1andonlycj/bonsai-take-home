@@ -21,14 +21,14 @@ const Cart = () => {
         <div className="cart-items-container">
           {Object.keys(cartProducts).length > 0 && (
             Object.keys(cartProducts).map((item, index: number) => (
+              // The options here need to be mapped within the cart item... that means cartItem needs an update if not a child.
               <CartItem 
                 name={cartProducts[item].name}
                 imageSrc={cartProducts[item].image}
                 quantityAvailable={cartProducts[item].quantityAvailable}
                 price={cartProducts[item].price}
                 id={cartProducts[item].id}
-                chosenType={cartProducts[item].chosenType}
-                chosenValue={cartProducts[item].chosenValue}
+                chosenOptions={cartProducts[item].chosenOptions}
                 key={index}
                 quantityDesired={cartProducts[item].quantityDesired}
               />

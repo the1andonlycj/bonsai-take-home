@@ -15,7 +15,6 @@ const ProductDetailModal = () => {
   const selectedProduct = useSelector((state: RootStore) => state.productsList.selectedProduct);
   const selectedOptions = useSelector((state: RootStore) => state.productsList.selectedOptions);
   const selectedVariantId = useSelector((state: RootStore) => state.productsList.selectedVariantId);
-
   const cartProducts = useSelector((state: RootStore) => state.cart.cart);
 
   const [variantsToggled, setVariantsToggled] = useState(false);
@@ -73,8 +72,7 @@ const ProductDetailModal = () => {
       image: '',
       price: 0,
       name: '',
-      chosenType: '',
-      chosenValue: '',
+      chosenOptions: [],
       quantityAvailable: 0,
       id: '',
       key: ''
@@ -83,28 +81,26 @@ const ProductDetailModal = () => {
     if(selectedVariantId) {
       selectedProduct.variants.forEach((variant, index) => {
         if(variant.id === selectedVariantId) {
-          console.log("FOUND IT", index)
           prodVariant = selectedProduct.variants[index]
         }
+        console.log("PRODVAR", prodVariant)
       }
       )} else {
         prodVariant = selectedProduct.variants[0]
     }
 
-
-
+    
     const newItem: ICartItem = {
       key: prodVariant.id,
       image: prodVariant?.image,
       price: Number(((prodVariant?.priceCents) / 100 ).toFixed(2)),
       name: selectedProduct.name,
-      // WE NEED SUPPORT FOR MULTIPLE TYPES!!!!
-      chosenType: prodVariant?.selectableOptions[0]?.type,
-      chosenValue: prodVariant?.selectableOptions[0]?.value,
+      chosenOptions: prodVariant.selectableOptions,
       quantityAvailable: prodVariant.quantity,
       id: prodVariant.id,
       quantityDesired: 1,
-    }
+    }      
+   
 
     console.log("NEWITEMBB", newItem)
     

@@ -15,7 +15,7 @@ export const GetProducts = () => async (dispatch: Dispatch<DispatchTypes>) => {
       })
       const flattenedOptions = allOptions.reduce((accumulator: string[], value:string) => accumulator.concat(value), []);
 
-      let typesObjectWithValues: object[] = {}
+      let typesObjectWithValues: object[] = []
 
       for(let option of flattenedOptions) {
         typesObjectWithValues[option.type] = []

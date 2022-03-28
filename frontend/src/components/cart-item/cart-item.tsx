@@ -1,4 +1,4 @@
-import { FC, ReactElement, useState } from 'react';
+import { ChangeEvent, FC, ReactElement, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { UpdateCart, RemoveItemFromCart } from '../../redux/actions/cartActions';
 
@@ -11,6 +11,10 @@ interface ICartItemProps {
   quantityDesired: string,
   price: number,
   id: string,
+  chosenOptions?: IChosenOptions[],
+}
+
+interface IChosenOptions {
   chosenType: string,
   chosenValue: string,
 }
@@ -23,20 +27,21 @@ interface IPropsDropDown {
   onChange: (a: any) => void
 }
 
-const CartItem: FC<ICartItemProps> = ({ name, imageSrc, quantityAvailable, quantityDesired, price, id, chosenType, chosenValue}): ReactElement => {
+const CartItem: FC<ICartItemProps> = ({ name, imageSrc, quantityAvailable, quantityDesired, price, id, chosenOptions}): ReactElement => {
   const [selectedQuantity, setSelectedQuantity] = useState(quantityDesired)
   const dispatch = useDispatch();
   const removeProduct = (e: React.MouseEvent<HTMLElement>) => {
     dispatch(RemoveItemFromCart(e.target?.id))
   }
   
-  const setQuantity = (e: any) => {
+  const setQuantity = (e: ChangeEvent<HTMLInputElement>) => {
     setSelectedQuantity(e.target.value)
     dispatch(UpdateCart({id:e.target.id, quantity:e.target.value}))
     
   }
+  console.log("CHOSEOPTS:", chosenOptions)
   
-  // Dropdown Number List:
+  // Dropdown number list for quantity selection:
   const quantityOptions = [ ...Array(quantityAvailable).keys() ].map( i => i+1);
   const Dropdown = ({ id, label, value, options, onChange }: IPropsDropDown) => {
     return (
@@ -58,7 +63,12 @@ const CartItem: FC<ICartItemProps> = ({ name, imageSrc, quantityAvailable, quant
         <span>{name} </span>
         <span> Unit Price: ${price?.toFixed(2)} </span>
         <span> Quantity: {quantityDesired} </span>
-        <span> {chosenType}: {chosenValue} </span>
+        {/* Map through the options that were chosen by the user here */}
+        {chosenOptions?.map((option: IChosenOptions, index: number) => (
+            <span  key={index}>{option.type}: {option.value}</span>
+          ))}
+          
+        
         <span>Total Price: ${(price * Number(quantityDesired))?.toFixed(2) }</span> 
         <Dropdown id={id} label="Quantity" value={selectedQuantity} options={quantityOptions} onChange={setQuantity} />
         <button className="remove-button" id={id} onClick={removeProduct}>Remove?</button>
