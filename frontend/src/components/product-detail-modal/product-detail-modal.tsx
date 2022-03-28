@@ -83,7 +83,6 @@ const ProductDetailModal = () => {
         if(variant.id === selectedVariantId) {
           prodVariant = selectedProduct.variants[index]
         }
-        console.log("PRODVAR", prodVariant)
       }
       )} else {
         prodVariant = selectedProduct.variants[0]
@@ -100,9 +99,6 @@ const ProductDetailModal = () => {
       id: prodVariant.id,
       quantityDesired: 1,
     }      
-   
-
-    console.log("NEWITEMBB", newItem)
     
     if (!cartProducts.includes(newItem)) {
       dispatch(AddToCart(newItem));

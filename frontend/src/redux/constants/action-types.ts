@@ -11,6 +11,7 @@ export const SELECTED_OPTIONS = "SELECTED_OPTIONS";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const UPDATE_CART = "UPDATE_CART";
 export const REMOVE_ITEM = "REMOVE_ITEM";
+export const UPDATE_TOTAL = "UPDATE_TOTAL";
 export const SET_SELECTED_VARIANT = "SET_SELECTED_VARIANT";
 
 
@@ -66,4 +67,10 @@ interface SetSelectedVariant {
   type: typeof SET_SELECTED_VARIANT,
   payload: string
 }
-export type DispatchTypes = GetProductsSuccess | GetProductsError | SelectedProduct | RemoveSelectedProduct | ToggleCart | ToggleModal | SelectedOptions | AddToCart | UpdateCart | RemoveItem | SetSelectedVariant
+
+interface UpdateTotal {
+  type: typeof UPDATE_TOTAL,
+  payload: number
+}
+
+export type DispatchTypes = GetProductsSuccess | GetProductsError | SelectedProduct | RemoveSelectedProduct | ToggleCart | ToggleModal | SelectedOptions | AddToCart | UpdateCart | RemoveItem | SetSelectedVariant | UpdateTotal

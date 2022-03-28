@@ -1,14 +1,16 @@
-import { UPDATE_CART, TOGGLE_CART, ADD_TO_CART, REMOVE_ITEM } from "../constants/action-types";
+import { UPDATE_CART, TOGGLE_CART, ADD_TO_CART, REMOVE_ITEM, UPDATE_TOTAL } from "../constants/action-types";
 import { ICartItem } from "../constants/cart-types";
 
 interface IInitialState {
   isCartOpen: boolean;
   cart: ICartItem[];
+  cartTotal: number;
 }
 
 const initialState: IInitialState = {
   isCartOpen: false,
-  cart: []
+  cart: [],
+  cartTotal: 0
 }
 
 export const cartReducer = (state: IInitialState = initialState, { type, payload }: any): IInitialState => {
@@ -28,6 +30,8 @@ export const cartReducer = (state: IInitialState = initialState, { type, payload
       updatedCart[itemIndex].quantityDesired = Number(payload.quantity)
       return { ...state, cart: updatedCart }
     }
+    case UPDATE_TOTAL:
+      return { ...state, cartTotal: payload }
     default:
       return state;
   }

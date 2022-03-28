@@ -6,7 +6,7 @@ export type ICartItem = {
   quantityAvailable: number;
   id: string;
   key: string;
-  quantityDesired?: number;
+  quantityDesired: number;
 }
 
 export type IChosenOptions = {

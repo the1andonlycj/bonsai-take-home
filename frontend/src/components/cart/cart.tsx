@@ -1,16 +1,32 @@
 import { useDispatch, useSelector } from 'react-redux';
 import CartItem from '../cart-item/cart-item';
 import { RootStore } from '../../redux/store';
-import { ToggleCart } from '../../redux/actions/cartActions';
+import { ToggleCart, UpdateTotal } from '../../redux/actions/cartActions';
+import { useEffect } from 'react';
 
 import './cart.styles.css';
 
 const Cart = () => {
   const isCartOpen = useSelector((state: RootStore) => state.cart.isCartOpen);
+  const allCartProducts = useSelector((state: RootStore) => state.cart.cart);
+  const cartTotal = useSelector((state: RootStore) => state.cart.cartTotal)
+  
   const dispatch = useDispatch();
   const _toggleCart = () => {
     dispatch(ToggleCart(!isCartOpen))
   }
+
+
+  useEffect(() => {
+    let totalPrice = 0;
+    allCartProducts.map((individualProuct)=> {
+      totalPrice = totalPrice + (individualProuct.price * individualProuct.quantityDesired)
+    })
+    dispatch(UpdateTotal(totalPrice))
+    // This needs to update any time the quantity of a product is changed or an item is added/removed. It is already listening for new items added to cart. It auto updates after removal if modal is open and closed.
+  }, [allCartProducts])
+  
+
   const cartProducts = useSelector((state: RootStore) => state.cart.cart);
   return (
     <div className="cart-modal">
@@ -37,7 +53,7 @@ const Cart = () => {
           
         </div>
         <div className="total-container">
-          {/* <span>Total: ${totalPrice}</span> */}
+          <span>Total: ${cartTotal}</span>
         </div>
       </div>
     </div>

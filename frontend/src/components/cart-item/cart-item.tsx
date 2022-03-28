@@ -39,7 +39,6 @@ const CartItem: FC<ICartItemProps> = ({ name, imageSrc, quantityAvailable, quant
     dispatch(UpdateCart({id:e.target.id, quantity:e.target.value}))
     
   }
-  console.log("CHOSEOPTS:", chosenOptions)
   
   // Dropdown number list for quantity selection:
   const quantityOptions = [ ...Array(quantityAvailable).keys() ].map( i => i+1);
@@ -69,7 +68,7 @@ const CartItem: FC<ICartItemProps> = ({ name, imageSrc, quantityAvailable, quant
           ))}
           
         
-        <span>Total Price: ${(price * Number(quantityDesired))?.toFixed(2) }</span> 
+        <span>Total Cost: ${(price * Number(quantityDesired))?.toFixed(2) }</span> 
         <Dropdown id={id} label="Quantity" value={selectedQuantity} options={quantityOptions} onChange={setQuantity} />
         <button className="remove-button" id={id} onClick={removeProduct}>Remove?</button>
       </div>
