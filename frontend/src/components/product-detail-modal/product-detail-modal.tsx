@@ -4,7 +4,7 @@ import { ICartItem } from '../../redux/constants/cart-types';
 import { ToggleModal, SetSelectedVariant } from "../../redux/actions/productActions";
 import { useSelector, useDispatch } from "react-redux";
 import { RootStore } from '../../redux/store';
-import { AddToCart, ToggleCart } from '../../redux/actions/cartActions';
+import { AddToCart, UpdateCart, ToggleCart } from '../../redux/actions/cartActions';
 
 import './product-detail-modal.css';
 
@@ -75,7 +75,8 @@ const ProductDetailModal = () => {
       chosenOptions: [],
       quantityAvailable: 0,
       id: '',
-      key: ''
+      key: '',
+      quantityDesired: 0
     };
 
     if(selectedVariantId) {
@@ -100,11 +101,30 @@ const ProductDetailModal = () => {
       quantityDesired: 1,
     }      
     
-    if (!cartProducts.includes(newItem)) {
+    // This code does NOT work.
+    // We need to check the cartProducts and ensure that the thing we're after is in there or not by checking its ID, not anything else--the full object here will probably not match, especially given the "quantityDesired" field will almost certainly mismatch. 
+    if (cartProducts.length < 1) {
       dispatch(AddToCart(newItem));
+    } else {
+      console.log("There's stuff.")
+      
+      for(let cartProduct of cartProducts) {
+        console.log("CARPRO", cartProduct.id)
+        if(newItem.id === cartProduct.id) {
+          // Product already represented in the cart. Increment quantity.
+          console.log("Oh yeah. That's the same.")
+          // Get the appropriate value, but also, why is quantityDesired not STRAIGHTUP a number right now?
+          // dispatch(UpdateCart({id: prodVariant.id, quantityDesired: }))
+        }
+      }
     }
+    // else...? we should increment the quantity of the chosen item.
+    
+    // console.log("ALLPRODS:", cartProducts)
     dispatch(ToggleCart(true))
     _toggleModalClosed();
+    
+
   }
 
   return (
@@ -154,7 +174,7 @@ const ProductDetailModal = () => {
                 <p>
                   With enough interest, it may be available again. The standard version comes with {selectedProduct.variants[0]?.selectableOptions[0]?.value.toLowerCase()} {selectedProduct.variants[0]?.selectableOptions[0]?.type.toLowerCase()} for only ${((selectedProduct.variants[0]?.priceCents) / 100 ).toFixed(2)}. 
                 </p>
-                <button onClick={()=>{alert('This feature needs to be linked to the database!')}} >Let us know if you'd like to be notified when it comes back in stock.</button>
+                <button className="out-of-stock-button" onClick={()=>{alert('This feature needs to be linked to the database!')}} >Click here if you'd like to be notified when it comes back in stock.</button>
               </div>
             )
           }

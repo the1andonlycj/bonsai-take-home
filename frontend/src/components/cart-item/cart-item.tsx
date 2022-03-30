@@ -41,13 +41,13 @@ const CartItem: FC<ICartItemProps> = ({ name, imageSrc, quantityAvailable, quant
   }
   
   // Dropdown number list for quantity selection:
-  const quantityOptions = [ ...Array(quantityAvailable).keys() ].map( i => i+1);
+  const quantityOptions = [ ...Array(quantityAvailable).keys()].map( i => i+1);
   const Dropdown = ({ id, label, value, options, onChange }: IPropsDropDown) => {
     return (
-      <label>
+      <label key={id}>
         {label}
-        <select id={id} value={value} onChange={onChange}>
-          {options.map((option: number, index: number) => (
+        <select key={id} id={id} value={value} onChange={onChange}>
+          {options.map((option: string, index: number) => (
             <option  key={index} value={option}>{option}</option>
           ))}
         </select>

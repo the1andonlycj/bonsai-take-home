@@ -52,9 +52,11 @@ const Cart = () => {
           )}
           
         </div>
-        <div className="total-container">
-          <span>Total: ${cartTotal}</span>
-        </div>
+        {allCartProducts.length > 0 &&
+          <div className="total-container">
+            <h3>Cart Total: ${cartTotal.toFixed(2)}</h3>
+          </div>
+        }
       </div>
     </div>
   );

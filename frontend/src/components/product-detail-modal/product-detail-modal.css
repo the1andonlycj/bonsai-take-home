@@ -37,7 +37,7 @@
 
 .modal-column-right button{
   align-self: flex-end;
-  width: 6em;
+  min-width: 6em;
   height: 2em;
   border-radius: 5px;
   background-color: #DCDCDC;
@@ -63,4 +63,8 @@
   flex: row;
   justify-content: space-around;
   align-items: baseline;
+}
+
+.out-of-stock-button {
+  width: 30em;
 }

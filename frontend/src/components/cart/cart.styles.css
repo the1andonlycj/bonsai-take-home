@@ -4,7 +4,9 @@
   flex-direction: column;
   position: fixed;
   right: 0px;
-  height: 100vh;
+  max-height: 100vh;
+  min-height: 100vh;
+  overflow-y: auto;
   width: 400px;
   padding: 15px;
   background-color: white;
@@ -29,5 +31,6 @@
 }
 
 .cart-modal .total-container {
-  margin-top: auto;
+  align-self: flex-end;
+  margin-right: 2em;
 }
