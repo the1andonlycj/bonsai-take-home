@@ -27,7 +27,7 @@ export const cartReducer = (state: IInitialState = initialState, { type, payload
     case UPDATE_CART: {
       const itemIndex = state.cart.findIndex(item => item.id === payload.id)
       const updatedCart = [...state.cart]
-      updatedCart[itemIndex].quantityDesired = Number(payload.quantity)
+      updatedCart[itemIndex].quantityDesired = Number(payload.quantityDesired)
       return { ...state, cart: updatedCart }
     }
     case UPDATE_TOTAL:
